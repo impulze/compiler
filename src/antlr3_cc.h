@@ -75,9 +75,9 @@ namespace antlr3
 	{
 	public:
 		template <class CreateFunction, class TokenSourceFunction>
-		lexer_factory(CreateFunction const &create_function,
-		              TokenSourceFunction const &token_source_function,
-		              input_stream &input_stream);
+		lexer_factory(CreateFunction const &,
+		              TokenSourceFunction const &,
+		              input_stream &);
 
 	protected:
 		T *get_specific_impl()
@@ -187,8 +187,8 @@ namespace antlr3
 	{
 	public:
 		template <class CreateFunction>
-		parser_factory(CreateFunction const &create_function,
-		               token_stream &token_stream);
+		parser_factory(CreateFunction const &,
+		               token_stream &);
 
 	protected:
 		T *get_specific_impl()
