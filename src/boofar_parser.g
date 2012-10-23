@@ -6,5 +6,4 @@ options
 	language = C;
 }
 
-parse : INTEGER + EOF
-	;
+parse : (DECIMAL | IDENTIFIER) + EOF;
