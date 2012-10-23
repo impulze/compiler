@@ -1,5 +1,5 @@
-CC = clang -m32
-CXX = clang++ -std=c++11 -m32
+CC = clang -m32 -ggdb3
+CXX = clang++ -std=c++11 -m32 -ggdb3
 ANTLR = antlr
 ANTLRC_INSTALL = /usr/local
 WARNFLAGS = -Wall -Wextra
