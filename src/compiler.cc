@@ -22,8 +22,13 @@ namespace boofar
 	};
 }
 
-int main(int, char *argv[])
+int main(int argc, char *argv[])
 {
+	if (argc < 2)
+	{
+		throw std::runtime_error("please specify a filename to parse");
+	}
+
 	antlr3::input_stream input_stream(argv[1]);
 	boofar::lexer lexer(input_stream);
 	antlr3::token_stream token_stream(lexer);
