@@ -1,0 +1,7 @@
+/src/*.o
+/src/compiler
+/src/deps/
+/src/*_lexer.[ch]
+/src/*_parser.[ch]
+/src/*.tokens
+
