@@ -5,7 +5,9 @@ extern "C"
 
 #include <iostream>
 
-void boofar_parser_debug(char const *string)
+void boofar_parser_debug(ANTLR3_STRING *string)
 {
-	std::cout << string << std::endl;
+	char *chars = reinterpret_cast<char *>(string->chars);
+
+	std::cout << chars << std::endl;
 }
