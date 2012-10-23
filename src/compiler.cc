@@ -21,6 +21,8 @@ namespace boofar
 	{
 	public:
 		explicit parser(antlr3::token_stream &);
+
+		void parse();
 	};
 }
 
@@ -34,7 +36,6 @@ int main(int argc, char *argv[])
 	antlr3::input_stream input_stream(argv[1]);
 	boofar::lexer lexer(input_stream);
 	antlr3::token_stream token_stream(lexer);
-	boofar::parser parser(token_stream);
 
 	std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
 
@@ -42,6 +43,10 @@ int main(int argc, char *argv[])
 	{
 		std::cout << "token: " << token.to_string() << std::endl;
 	}
+
+	boofar::parser parser(token_stream);
+
+	parser.parse();
 
 	return 0;
 }
@@ -61,5 +66,10 @@ namespace boofar
 	parser::parser(antlr3::token_stream &token_stream)
 		: parser_factory(boofar_parserNew, token_stream)
 	{
+	}
+
+	void parser::parse()
+	{
+		wrapped_call(get_specific_impl()->parse);
 	}
 }
