@@ -22,6 +22,14 @@ namespace antlr3
 	}
 
 	template <class T>
+	template <class Function, class... Args>
+	typename std::result_of<Function(T *, Args...)>::type
+	lexer_factory<T>::wrapped_call(Function const &function, Args &&... args)
+	{
+		return function(shared_impl_.get(), std::forward<Args>(args)...);
+	}
+
+	template <class T>
 	void lexer_factory<T>::releaser(T *lexer)
 	{
 		lexer->free(lexer);
@@ -42,6 +50,14 @@ namespace antlr3
 
 		shared_impl_.reset(parser, releaser);
 		impl_ = parser->pParser;
+	}
+
+	template <class T>
+	template <class Function, class... Args>
+	typename std::result_of<Function(T *, Args...)>::type
+	parser_factory<T>::wrapped_call(Function const &function, Args &&... args)
+	{
+		return function(shared_impl_.get(), std::forward<Args>(args)...);
 	}
 
 	template <class T>

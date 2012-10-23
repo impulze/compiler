@@ -79,6 +79,16 @@ namespace antlr3
 		              TokenSourceFunction const &token_source_function,
 		              input_stream &input_stream);
 
+	protected:
+		T *get_specific_impl()
+		{
+			return shared_impl_.get();
+		}
+
+		template <class Function, class... Args>
+		typename std::result_of<Function(T *, Args...)>::type
+		wrapped_call(Function const &, Args &&...);
+
 	private:
 		static void releaser(T *);
 
@@ -179,6 +189,16 @@ namespace antlr3
 		template <class CreateFunction>
 		parser_factory(CreateFunction const &create_function,
 		               token_stream &token_stream);
+
+	protected:
+		T *get_specific_impl()
+		{
+			return shared_impl_.get();
+		}
+
+		template <class Function, class... Args>
+		typename std::result_of<Function(T *, Args...)>::type
+		wrapped_call(Function const &, Args &&...);
 
 	private:
 		static void releaser(T *);
