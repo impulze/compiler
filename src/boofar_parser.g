@@ -13,5 +13,5 @@ options
 
 parse : (
 		DECIMAL {boofar_parser_debug($DECIMAL.text);}
-		| IDENTIFIER {boofar_parser_debug($DECIMAL.text);}
+		| IDENTIFIER {boofar_parser_debug($IDENTIFIER.text);}
 	) + EOF;
