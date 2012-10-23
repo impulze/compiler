@@ -11,6 +11,8 @@ namespace boofar
 	{
 	public:
 		explicit lexer(antlr3::input_stream &);
+
+	private:
 		static ANTLR3_TOKEN_SOURCE *get_token_source(boofar_lexer *lexer);
 	};
 
