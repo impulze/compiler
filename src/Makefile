@@ -10,7 +10,7 @@ LDLIBS = -lantlr3c
 LDFLAGS = -L$(ANTLRC_INSTALL)/lib
 
 # sources
-PARSER_OBJS = boofar_parser.o
+PARSER_OBJS = boofar_parser.o boofar_parser_debug.o
 PARSER_GEN = boofar_parser.h boofar_parser.c boofar_parser.tokens
 LEXER_OBJS = boofar_lexer.o
 LEXER_GEN = boofar_lexer.h boofar_lexer.c boofar_lexer.tokens

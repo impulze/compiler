@@ -6,4 +6,12 @@ options
 	language = C;
 }
 
-parse : (DECIMAL | IDENTIFIER) + EOF;
+@header
+{
+#include "boofar_parser_debug.h"
+}
+
+parse : (
+		DECIMAL {boofar_parser_debug($DECIMAL.text);}
+		| IDENTIFIER {boofar_parser_debug($DECIMAL.text);}
+	) + EOF;
