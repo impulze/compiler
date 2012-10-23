@@ -26,27 +26,59 @@ namespace boofar
 	};
 }
 
+static void usage()
+{
+	std::cerr << "parsing:       ./compiler <filename>\n"
+	             "tokenize only: ./compiler --tokenize <filename>\n";
+
+	throw std::runtime_error("illegal arguments");
+}
+
 int main(int argc, char *argv[])
 {
-	if (argc < 2)
+	if (argc < 2 || argc > 3)
 	{
-		throw std::runtime_error("please specify a filename to parse");
+		usage();
 	}
 
-	antlr3::input_stream input_stream(argv[1]);
+	if (argc == 3)
+	{
+		if (std::string(argv[1]) != "--tokenize")
+		{
+			usage();
+		}
+	}
+
+	char const *filename;
+
+	if (argc == 3)
+	{
+		filename = argv[2];
+	}
+	else
+	{
+		filename = argv[1];
+	}
+
+	antlr3::input_stream input_stream(filename);
 	boofar::lexer lexer(input_stream);
 	antlr3::token_stream token_stream(lexer);
 
-	std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
-
-	for (antlr3::common_token &token: tokens)
+	if (argc == 3)
 	{
-		std::cout << "token: " << token.to_string() << std::endl;
+		std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
+
+		for (antlr3::common_token &token: tokens)
+		{
+			std::cout << "token: " << token.to_string() << std::endl;
+		}
 	}
+	else
+	{
+		boofar::parser parser(token_stream);
 
-	boofar::parser parser(token_stream);
-
-	parser.parse();
+		parser.parse();
+	}
 
 	return 0;
 }
