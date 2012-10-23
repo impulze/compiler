@@ -1,20 +1,58 @@
+#include "antlr3_cc.h"
 #include "boofar_lexer.h"
 #include "boofar_parser.h"
 
+#include <iostream>
+
+namespace boofar
+{
+	class lexer
+		: public antlr3::lexer_factory<boofar_lexer>
+	{
+	public:
+		explicit lexer(antlr3::input_stream &);
+		static ANTLR3_TOKEN_SOURCE *get_token_source(boofar_lexer *lexer);
+	};
+
+	class parser
+		: public antlr3::parser_factory<boofar_parser>
+	{
+	public:
+		explicit parser(antlr3::token_stream &);
+	};
+}
+
 int main(int, char *argv[])
 {
-	pANTLR3_UINT8 const filename = reinterpret_cast<pANTLR3_UINT8>(argv[1]);
-	pANTLR3_INPUT_STREAM const input = antlr3FileStreamNew(filename, ANTLR3_ENC_UTF8);
-	pboofar_lexer const lexer = boofar_lexerNew(input);
-	pANTLR3_COMMON_TOKEN_STREAM tokens = antlr3CommonTokenStreamSourceNew(ANTLR3_SIZE_HINT, TOKENSOURCE(lexer));
-	pboofar_parser const parser = boofar_parserNew(tokens);
+	antlr3::input_stream input_stream(argv[1]);
+	boofar::lexer lexer(input_stream);
+	antlr3::token_stream token_stream(lexer);
+	boofar::parser parser(token_stream);
 
-	parser->parse(parser);
+	std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
 
-	parser->free(parser);
-	tokens->free(tokens);
-	lexer->free(lexer);
-	input->close(input);
+	for (antlr3::common_token &token: tokens)
+	{
+		std::cout << "token: " << token.to_string() << std::endl;
+	}
 
 	return 0;
+}
+
+namespace boofar
+{
+	lexer::lexer(antlr3::input_stream &input_stream)
+		: lexer_factory(boofar_lexerNew, get_token_source, input_stream)
+	{
+	}
+
+	ANTLR3_TOKEN_SOURCE *lexer::get_token_source(boofar_lexer *lexer)
+	{
+		return TOKENSOURCE(lexer);
+	}
+
+	parser::parser(antlr3::token_stream &token_stream)
+		: parser_factory(boofar_parserNew, token_stream)
+	{
+	}
 }
