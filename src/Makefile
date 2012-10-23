@@ -42,6 +42,9 @@ boofar_%.o: WARNFLAGS = -w
 
 compiler.cc: boofar_lexer.h boofar_parser.h
 
+boofar_lexer.h: boofar_parser.g
+boofar_parser.h: boofar_lexer.g
+
 boofar_%.h boofar_%.c: boofar_%.g
 	$(ANTLR) $<
 
