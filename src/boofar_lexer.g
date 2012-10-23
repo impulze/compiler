@@ -9,7 +9,7 @@ INTEGER : '0'..'9'+
 	;
 
 COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-	// |   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+	| '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 	;
 
 WHITESPACE : (
