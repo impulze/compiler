@@ -15,10 +15,5 @@ COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
 fragment DIGIT : '0'..'9';
 fragment ASCII_LETTER : 'a'..'z' | 'A'..'Z';
 
-WHITESPACE : (
-	' '
-	| '\t'
-	| '\r'
-	| '\n'
-	) {$channel=HIDDEN;}
-	;
+NEWLINE : ('\r'|'\n') {$channel=HIDDEN;};
+WHITESPACE : (NEWLINE|'\t'|' ') {$channel=HIDDEN;};
