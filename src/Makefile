@@ -48,11 +48,9 @@ depend: $(DEPS)
 boofar_%.o: WARNFLAGS = -w
 
 compiler.cc: boofar_lexer.h boofar_parser.h
-
-boofar_lexer.h: boofar_parser.g
-boofar_parser.h: boofar_lexer.g
-
-boofar_%.h boofar_%.c: boofar_%.g
+boofar_parser.g: boofar_lexer.tokens
+boofar.o tests/tokens.o: boofar_lexer.h boofar_parser.h
+boofar_%.tokens boofar_%.h boofar_%.c: boofar_%.g
 	$(ANTLR) $<
 
 clean:
