@@ -28,6 +28,11 @@ namespace antlr3
 		return std::string(chars, string->len);
 	}
 
+	std::uint32_t common_token::get_type()
+	{
+		return impl_->getType(impl_);
+	}
+
 	token_stream::token_stream(lexer &lexer)
 		: lexer_(lexer)
 	{

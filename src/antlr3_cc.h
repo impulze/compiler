@@ -3,6 +3,7 @@
 
 #include <antlr3.h>
 
+#include <cstdint>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -104,6 +105,7 @@ namespace antlr3
 		}
 
 		std::string to_string();
+		std::uint32_t get_type();
 
 		/* you're on your own using this, don't expect anything */
 		ANTLR3_COMMON_TOKEN *get_implementation()
