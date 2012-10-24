@@ -10,10 +10,26 @@ BOOST_AUTO_TEST_CASE(valid_identifiers)
 	boofar::lexer lexer(input_stream);
 	antlr3::token_stream token_stream(lexer);
 	std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
+	std::uint32_t const expected_types[] = {
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline
+	};
+	std::size_t const expected_amount = sizeof expected_types / sizeof *expected_types;
 
-	for (antlr3::common_token &token: tokens)
+	BOOST_CHECK_EQUAL(tokens.size(), expected_amount);
+	for (std::size_t i = 0; i < expected_amount && i < tokens.size(); i++)
 	{
-		std::cout << "token: " << token.to_string() << std::endl;
+		BOOST_CHECK_EQUAL(tokens[i].get_type(), expected_types[i]);
 	}
 }
 
@@ -23,10 +39,96 @@ BOOST_AUTO_TEST_CASE(valid_literals)
 	boofar::lexer lexer(input_stream);
 	antlr3::token_stream token_stream(lexer);
 	std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
+	std::uint32_t const expected_types[] = {
+		boofar::types::oct_literal,
+		boofar::types::newline,
+		boofar::types::oct_literal,
+		boofar::types::newline,
+		boofar::types::dec_literal,
+		boofar::types::newline,
+		boofar::types::dec_literal,
+		boofar::types::newline,
+		boofar::types::hex_literal,
+		boofar::types::newline,
+		boofar::types::hex_literal,
+		boofar::types::newline,
+		boofar::types::hex_literal,
+		boofar::types::newline,
+		boofar::types::hex_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline,
+		boofar::types::float_literal,
+		boofar::types::newline
+	};
+	std::size_t const expected_amount = sizeof expected_types / sizeof *expected_types;
 
-	for (antlr3::common_token &token: tokens)
+	BOOST_CHECK_EQUAL(tokens.size(), expected_amount);
+	for (std::size_t i = 0; i < expected_amount && i < tokens.size(); i++)
 	{
-		std::cout << "token: " << token.to_string() << std::endl;
+		BOOST_CHECK_EQUAL(tokens[i].get_type(), expected_types[i]);
 	}
 }
 
