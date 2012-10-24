@@ -4,4 +4,5 @@
 /src/*_lexer.[ch]
 /src/*_parser.[ch]
 /src/*.tokens
-
+/src/tests/*.o
+/src/tests/suite

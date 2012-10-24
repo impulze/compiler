@@ -14,19 +14,26 @@ PARSER_OBJS = boofar_parser.o boofar_parser_debug.o
 PARSER_GEN = boofar_parser.h boofar_parser.c boofar_parser.tokens
 LEXER_OBJS = boofar_lexer.o
 LEXER_GEN = boofar_lexer.h boofar_lexer.c boofar_lexer.tokens
-COMPILER_OBJS = antlr3_cc.o compiler.o boofar.o $(PARSER_OBJS) $(LEXER_OBJS)
+COMMON_OBJS = antlr3_cc.o boofar.o $(PARSER_OBJS) $(LEXER_OBJS)
+COMPILER_OBJS = compiler.o $(COMMON_OBJS)
+TESTS_OBJS = tests/suite.o tests/tokens.o $(COMMON_OBJS)
 
 # collection variables
-OBJS = $(COMPILER_OBJS)
+OBJS = $(COMPILER_OBJS) $(TESTS_OBJS)
 DEPS = $(OBJS:%=deps/%)
 
 # overwrite default rules
 LINK.o = $(CXX) $(LDFLAGS) $(TARGET_ARCH)
 
-all: compiler
+all: compiler tests/suite
 
 compiler: $(COMPILER_OBJS)
 	$(CXX) $(LDFLAGS) $(TARGET_ARCH) -o $@ $^ $(LDLIBS)
+
+tests/suite: $(TESTS_OBJS)
+	$(CXX) $(LDFLAGS) $(TARGET_ARCH) -o $@ $^ $(LDLIBS)
+
+tests/%.o: CXXFLAGS += -I.
 
 depend: $(DEPS)
 
@@ -49,7 +56,7 @@ boofar_%.h boofar_%.c: boofar_%.g
 	$(ANTLR) $<
 
 clean:
-	$(RM) compiler
+	$(RM) compiler tests/suite
 	$(RM) $(OBJS)
 	$(RM) $(DEPS)
 	$(RM) $(PARSER_GEN) $(LEXER_GEN)
