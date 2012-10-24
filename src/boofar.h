@@ -22,5 +22,21 @@ namespace boofar
 
 		void parse();
 	};
-}
 
+	namespace types
+	{
+		enum type
+		{
+			oct_literal = OCT_LITERAL,
+			hex_literal = HEX_LITERAL,
+			dec_literal = DEC_LITERAL,
+			float_literal = FLOAT_LITERAL,
+			string_literal = STRING_LITERAL,
+			identifier = IDENTIFIER,
+			comment = COMMENT,
+			newline = NEWLINE
+		};
+	}
+
+	typedef types::type type;
+}
