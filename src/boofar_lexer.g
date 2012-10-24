@@ -22,7 +22,7 @@ fragment OCT_DIGIT : '0'..'7';
 fragment HEX_DIGIT : '0'..'9'|'A'..'F'|'a'..'f';
 fragment DEC_DIGIT : '0'..'9';
 fragment EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+;
-fragment ASCII_LETTER : 'a'..'z' | 'A'..'Z';
+fragment ASCII_LETTER : 'a'..'z'|'A'..'Z';
 fragment ESCAPE : '\\' ('\r'|'\n'|'\t'|'\b'|'\f'|'\"'|'\\'|'\'');
 
 NEWLINE : ('\r'|'\n') {$channel=HIDDEN;};
