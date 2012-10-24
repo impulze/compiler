@@ -14,7 +14,7 @@ PARSER_OBJS = boofar_parser.o boofar_parser_debug.o
 PARSER_GEN = boofar_parser.h boofar_parser.c boofar_parser.tokens
 LEXER_OBJS = boofar_lexer.o
 LEXER_GEN = boofar_lexer.h boofar_lexer.c boofar_lexer.tokens
-COMPILER_OBJS = antlr3_cc.o compiler.o $(PARSER_OBJS) $(LEXER_OBJS)
+COMPILER_OBJS = antlr3_cc.o compiler.o boofar.o $(PARSER_OBJS) $(LEXER_OBJS)
 
 # collection variables
 OBJS = $(COMPILER_OBJS)
