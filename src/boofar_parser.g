@@ -8,7 +8,8 @@ options
 
 @header
 {
-#include "boofar_parser_debug.h"
+	#include <antlr3.h>
+	void boofar_parser_debug(ANTLR3_STRING *string);
 }
 
 parse : (

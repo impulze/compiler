@@ -1,7 +1,4 @@
-extern "C"
-{
-#include "boofar_parser_debug.h"
-}
+#include "boofar_parser.h"
 
 #include <iostream>
 
