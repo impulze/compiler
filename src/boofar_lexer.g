@@ -5,6 +5,21 @@ options
 	language = C;
 }
 
+@header
+{
+	#include <antlr3.h>
+
+	extern void boofar_lexer_report_error(ANTLR3_BASE_RECOGNIZER *recognizer);
+	extern void (*g_antlr3_report_error)(ANTLR3_BASE_RECOGNIZER *recognizer);
+}
+
+@apifuncs
+{
+	// save previous functions and replace with custom
+	g_antlr3_report_error = RECOGNIZER->reportError;
+	RECOGNIZER->reportError = boofar_lexer_report_error;
+}
+
 OCT_LITERAL : '0' OCT_DIGIT+;
 HEX_LITERAL : '0' ('x'|'X') HEX_DIGIT+;
 DEC_LITERAL : '0' | ('1'..'9' DEC_DIGIT*);
