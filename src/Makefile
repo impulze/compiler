@@ -52,6 +52,8 @@ compiler.o \
 boofar.o \
 boofar_lexer_debug.o \
 tests/tokens.o: boofar_lexer.h boofar_parser.h
+boofar_lexer_debug.o: boofar_lexer.h
+boofar_parser_debug.o: boofar_parser.h
 boofar_%.tokens boofar_%.h boofar_%.c: boofar_%.g
 	$(ANTLR) $<
 

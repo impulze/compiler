@@ -22,6 +22,12 @@ BOOST_AUTO_TEST_CASE(valid_identifiers)
 		boofar::types::identifier,
 		boofar::types::newline,
 		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
+		boofar::types::newline,
+		boofar::types::identifier,
 		boofar::types::newline
 	};
 	std::size_t const expected_amount = sizeof expected_types / sizeof *expected_types;
