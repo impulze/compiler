@@ -20,9 +20,9 @@ options
 	RECOGNIZER->reportError = boofar_lexer_report_error;
 }
 
-OCT_LITERAL : '0' OCT_DIGIT+;
+OCT_LITERAL : '0' ('o'|'O') OCT_DIGIT+;
 HEX_LITERAL : '0' ('x'|'X') HEX_DIGIT+;
-DEC_LITERAL : '0' | ('1'..'9' DEC_DIGIT*);
+DEC_LITERAL : DEC_DIGIT+;
 FLOAT_LITERAL : DEC_LITERAL '.' DEC_DIGIT* EXPONENT?
 	| '.' DEC_DIGIT+ EXPONENT?
 	| DEC_LITERAL EXPONENT
