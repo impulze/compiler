@@ -4,9 +4,8 @@
 
 namespace boofar
 {
-	class parse_return
+	struct parse_return
 	{
-	public:
 		antlr3::common_token start;
 		antlr3::common_token stop;
 		antlr3::base_tree tree;
