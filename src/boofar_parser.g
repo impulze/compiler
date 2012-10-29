@@ -13,14 +13,36 @@ options
 	void boofar_parser_debug(ANTLR3_STRING *string);
 }
 
-parse : simple_assignment | literals;
+program : statement+ ;
 
-simple_assignment : IDENTIFIER EQUALS IDENTIFIER;
+statement : ( declaration | expression ) SEMICOLON ;
 
-literals : (
-		OCT_LITERAL {boofar_parser_debug($OCT_LITERAL.text);}
-		| DEC_LITERAL {boofar_parser_debug($DEC_LITERAL.text);}
-		| HEX_LITERAL {boofar_parser_debug($HEX_LITERAL.text);}
-		| FLOAT_LITERAL {boofar_parser_debug($FLOAT_LITERAL.text);}
-		| IDENTIFIER {boofar_parser_debug($IDENTIFIER.text);}
-	) + EOF;
+expression :
+		atomic_expression
+	|	assignment
+	|	unary_operation
+	|	binary_operation
+	;
+
+atomic_expression :
+		literal
+	|	IDENTIFIER
+	|	LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+	;
+
+declaration : IDENTIFIER IDENTIFIER ;
+
+assignment : IDENTIFIER EQUALS expression ;
+
+unary_operation : UNARY_OPERATOR expression ;
+
+binary_operation : expression BINARY_OPERATOR expression ;
+
+literal :
+		(
+			OCT_LITERAL {boofar_parser_debug($OCT_LITERAL.text);}
+		|	DEC_LITERAL {boofar_parser_debug($DEC_LITERAL.text);}
+		|	HEX_LITERAL {boofar_parser_debug($HEX_LITERAL.text);}
+		|	FLOAT_LITERAL {boofar_parser_debug($FLOAT_LITERAL.text);}
+		)+
+	;

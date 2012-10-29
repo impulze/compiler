@@ -20,22 +20,27 @@ options
 	RECOGNIZER->reportError = boofar_lexer_report_error;
 }
 
-OCT_LITERAL : '0' ('o'|'O') OCT_DIGIT+;
-HEX_LITERAL : '0' ('x'|'X') HEX_DIGIT+;
+COMMENT :
+		'//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+	|	'/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+	;
 DEC_LITERAL : DEC_DIGIT+;
-FLOAT_LITERAL : DEC_LITERAL '.' DEC_DIGIT* EXPONENT?
-	| '.' DEC_DIGIT+ EXPONENT?
-	| DEC_LITERAL EXPONENT
-	;
-STRING_LITERAL : '"' (ESCAPE|~('\\'|'"'))* '"';
+EQUALS : '=' ;
+FLOAT_LITERAL : DEC_LITERAL '.' DEC_DIGIT* EXPONENT? ;
+HEX_LITERAL : '0' ('x'|'X') HEX_DIGIT+;
 IDENTIFIER : UNICODE_LETTER (UNICODE_LETTER|'_'|DEC_DIGIT)*;
-EQUALS : '=';
-COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-	| '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
-	;
 NEWLINE : ('\r'|'\n') {$channel=HIDDEN;};
+OCT_LITERAL
+	:	'0' ('o'|'O') OCT_DIGIT+
+	|	'.' DEC_DIGIT+ EXPONENT?
+	|	DEC_LITERAL EXPONENT
+	;
+SEMICOLON : ';';
+// STRING_LITERAL : '"' (ESCAPE|~('\\'|'"'))* '"';
 WHITESPACE : (NEWLINE|'\t'|' ') {$channel=HIDDEN;};
 
+fragment BINARY_OPERATOR : '+' | '-' | '*' | '/' | '^' | '==' | '!=' | '<' | '>' | '<=' | '>=' | '&&' | '||' ;
+fragment UNARY_OPERATOR : '-' | '!' | '~' ;
 fragment OCT_DIGIT : '0'..'7';
 fragment HEX_DIGIT : '0'..'9'|'A'..'F'|'a'..'f';
 fragment DEC_DIGIT : '0'..'9';
