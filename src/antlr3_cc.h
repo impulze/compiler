@@ -248,6 +248,12 @@ namespace antlr3
 		std::shared_ptr<T> shared_impl_;
 	};
 
+	struct generic_parse_return
+	{
+		antlr3::common_token start;
+		antlr3::common_token stop;
+		antlr3::base_tree tree;
+	};
 }
 
 #include "antlr3_cc.tcc"

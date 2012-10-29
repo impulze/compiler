@@ -17,7 +17,7 @@ namespace boofar
 	{
 	}
 
-	parse_return parser::parse()
+	antlr3::generic_parse_return parser::parse()
 	{
 		auto result = wrapped_call(get_specific_impl()->parse);
 		return {
