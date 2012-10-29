@@ -20,7 +20,7 @@ namespace boofar
 	public:
 		explicit parser(antlr3::token_stream &);
 
-		void parse();
+		boofar_parser_parse_return parse();
 	};
 
 	namespace types

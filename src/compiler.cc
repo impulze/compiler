@@ -53,7 +53,10 @@ int main(int argc, char *argv[])
 	{
 		boofar::parser parser(token_stream);
 
-		parser.parse();
+		auto foo = parser.parse();
+		auto tree = foo.tree;
+		auto str = tree->toStringTree(tree);
+		std::cout << str->chars << std::endl;
 	}
 
 	return 0;

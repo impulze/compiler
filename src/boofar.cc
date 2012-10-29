@@ -17,8 +17,8 @@ namespace boofar
 	{
 	}
 
-	void parser::parse()
+	boofar_parser_parse_return parser::parse()
 	{
-		wrapped_call(get_specific_impl()->parse);
+		return wrapped_call(get_specific_impl()->parse);
 	}
 }

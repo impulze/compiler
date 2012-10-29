@@ -4,6 +4,7 @@ options
 {
 	tokenVocab = boofar_lexer;
 	language = C;
+	output = AST;
 }
 
 @header
@@ -13,6 +14,9 @@ options
 }
 
 parse : (
-		DECIMAL {boofar_parser_debug($DECIMAL.text);}
+		OCT_LITERAL {boofar_parser_debug($OCT_LITERAL.text);}
+		| DEC_LITERAL {boofar_parser_debug($DEC_LITERAL.text);}
+		| HEX_LITERAL {boofar_parser_debug($HEX_LITERAL.text);}
+		| FLOAT_LITERAL {boofar_parser_debug($FLOAT_LITERAL.text);}
 		| IDENTIFIER {boofar_parser_debug($IDENTIFIER.text);}
 	) + EOF;
