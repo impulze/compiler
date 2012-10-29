@@ -13,7 +13,11 @@ options
 	void boofar_parser_debug(ANTLR3_STRING *string);
 }
 
-parse : (
+parse : simple_assignment | literals;
+
+simple_assignment : IDENTIFIER EQUALS IDENTIFIER;
+
+literals : (
 		OCT_LITERAL {boofar_parser_debug($OCT_LITERAL.text);}
 		| DEC_LITERAL {boofar_parser_debug($DEC_LITERAL.text);}
 		| HEX_LITERAL {boofar_parser_debug($HEX_LITERAL.text);}

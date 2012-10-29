@@ -21,6 +21,8 @@ namespace boofar
 		explicit parser(antlr3::token_stream &);
 
 		antlr3::generic_parse_return parse();
+		antlr3::generic_parse_return literals();
+		antlr3::generic_parse_return simple_assignment();
 	};
 
 	namespace types

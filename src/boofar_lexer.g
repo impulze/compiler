@@ -29,6 +29,7 @@ FLOAT_LITERAL : DEC_LITERAL '.' DEC_DIGIT* EXPONENT?
 	;
 STRING_LITERAL : '"' (ESCAPE|~('\\'|'"'))* '"';
 IDENTIFIER : UNICODE_LETTER (UNICODE_LETTER|'_'|DEC_DIGIT)*;
+EQUALS : '=';
 COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
 	| '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 	;

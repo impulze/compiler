@@ -26,4 +26,24 @@ namespace boofar
 			antlr3::base_tree(result.tree)
 		};
 	}
+
+	antlr3::generic_parse_return parser::literals()
+	{
+		auto result = wrapped_call(get_specific_impl()->literals);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::simple_assignment()
+	{
+		auto result = wrapped_call(get_specific_impl()->simple_assignment);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
 }
