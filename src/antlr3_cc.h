@@ -147,6 +147,46 @@ namespace antlr3
 		lexer lexer_;
 	};
 
+	class string
+	{
+	public:
+		explicit string(ANTLR3_STRING *string)
+			: impl_(string)
+		{
+		}
+
+		std::string to_std_string() const;
+
+		/* you're on your own using this, don't expect anything */
+		ANTLR3_STRING *get_implementation()
+		{
+			return impl_;
+		}
+
+	private:
+		ANTLR3_STRING *impl_;
+	};
+
+	class base_tree
+	{
+	public:
+		explicit base_tree(ANTLR3_BASE_TREE *tree)
+			: impl_(tree)
+		{
+		}
+
+		string to_string_tree() const;
+
+		/* you're on your own using this, don't expect anything */
+		ANTLR3_BASE_TREE *get_implementation()
+		{
+			return impl_;
+		}
+
+	private:
+		ANTLR3_BASE_TREE *impl_;
+	};
+
 	class parser
 	{
 	public:

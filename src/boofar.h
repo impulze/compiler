@@ -4,6 +4,14 @@
 
 namespace boofar
 {
+	class parse_return
+	{
+	public:
+		antlr3::common_token start;
+		antlr3::common_token stop;
+		antlr3::base_tree tree;
+	};
+
 	class lexer
 		: public antlr3::lexer_factory<boofar_lexer>
 	{
@@ -20,7 +28,7 @@ namespace boofar
 	public:
 		explicit parser(antlr3::token_stream &);
 
-		boofar_parser_parse_return parse();
+		parse_return parse();
 	};
 
 	namespace types

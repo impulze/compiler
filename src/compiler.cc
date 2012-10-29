@@ -55,8 +55,8 @@ int main(int argc, char *argv[])
 
 		auto foo = parser.parse();
 		auto tree = foo.tree;
-		auto str = tree->toStringTree(tree);
-		std::cout << str->chars << std::endl;
+		auto str = tree.to_string_tree();
+		std::cout << str.to_std_string() << std::endl;
 	}
 
 	return 0;

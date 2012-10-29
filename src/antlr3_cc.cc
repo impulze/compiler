@@ -68,4 +68,14 @@ namespace antlr3
 	{
 		stream->free(stream);
 	}
+
+	std::string string::to_std_string() const
+	{
+		return reinterpret_cast<char const *>(impl_->chars);
+	}
+
+	string base_tree::to_string_tree() const
+	{
+		return string(impl_->toStringTree(impl_));
+	}
 }

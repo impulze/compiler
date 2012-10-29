@@ -17,8 +17,13 @@ namespace boofar
 	{
 	}
 
-	boofar_parser_parse_return parser::parse()
+	parse_return parser::parse()
 	{
-		return wrapped_call(get_specific_impl()->parse);
+		auto result = wrapped_call(get_specific_impl()->parse);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
 	}
 }
