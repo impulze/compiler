@@ -1,33 +1,36 @@
-// $ANTLR !Unknown version! Expr.g 2012-10-22 16:45:48
+// $ANTLR 3.4 Expr.g 2012-10-22 17:04:04
 
 import org.antlr.runtime.*;
 import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings({"all", "warnings", "unchecked"})
 public class ExprLexer extends Lexer {
-    public static final int WS=7;
-    public static final int NEWLINE=4;
-    public static final int T__12=12;
-    public static final int T__11=11;
-    public static final int T__13=13;
-    public static final int T__10=10;
-    public static final int INT=6;
-    public static final int ID=5;
     public static final int EOF=-1;
-    public static final int T__9=9;
     public static final int T__8=8;
+    public static final int T__9=9;
+    public static final int T__10=10;
+    public static final int T__11=11;
+    public static final int T__12=12;
+    public static final int T__13=13;
+    public static final int ID=4;
+    public static final int INT=5;
+    public static final int NEWLINE=6;
+    public static final int WS=7;
 
     // delegates
     // delegators
+    public Lexer[] getDelegates() {
+        return new Lexer[] {};
+    }
 
-    public ExprLexer() {;} 
+    public ExprLexer() {} 
     public ExprLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
     public ExprLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
-
     }
     public String getGrammarFileName() { return "Expr.g"; }
 
@@ -36,88 +39,8 @@ public class ExprLexer extends Lexer {
         try {
             int _type = T__8;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Expr.g:3:6: ( '=' )
-            // Expr.g:3:8: '='
-            {
-            match('='); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__8"
-
-    // $ANTLR start "T__9"
-    public final void mT__9() throws RecognitionException {
-        try {
-            int _type = T__9;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Expr.g:4:6: ( '+' )
-            // Expr.g:4:8: '+'
-            {
-            match('+'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__9"
-
-    // $ANTLR start "T__10"
-    public final void mT__10() throws RecognitionException {
-        try {
-            int _type = T__10;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Expr.g:5:7: ( '-' )
-            // Expr.g:5:9: '-'
-            {
-            match('-'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__10"
-
-    // $ANTLR start "T__11"
-    public final void mT__11() throws RecognitionException {
-        try {
-            int _type = T__11;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Expr.g:6:7: ( '*' )
-            // Expr.g:6:9: '*'
-            {
-            match('*'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__11"
-
-    // $ANTLR start "T__12"
-    public final void mT__12() throws RecognitionException {
-        try {
-            int _type = T__12;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Expr.g:7:7: ( '(' )
-            // Expr.g:7:9: '('
+            // Expr.g:2:6: ( '(' )
+            // Expr.g:2:8: '('
             {
             match('('); 
 
@@ -127,17 +50,18 @@ public class ExprLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__12"
+    // $ANTLR end "T__8"
 
-    // $ANTLR start "T__13"
-    public final void mT__13() throws RecognitionException {
+    // $ANTLR start "T__9"
+    public final void mT__9() throws RecognitionException {
         try {
-            int _type = T__13;
+            int _type = T__9;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Expr.g:8:7: ( ')' )
-            // Expr.g:8:9: ')'
+            // Expr.g:3:6: ( ')' )
+            // Expr.g:3:8: ')'
             {
             match(')'); 
 
@@ -147,6 +71,91 @@ public class ExprLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__9"
+
+    // $ANTLR start "T__10"
+    public final void mT__10() throws RecognitionException {
+        try {
+            int _type = T__10;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Expr.g:4:7: ( '*' )
+            // Expr.g:4:9: '*'
+            {
+            match('*'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__10"
+
+    // $ANTLR start "T__11"
+    public final void mT__11() throws RecognitionException {
+        try {
+            int _type = T__11;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Expr.g:5:7: ( '+' )
+            // Expr.g:5:9: '+'
+            {
+            match('+'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__11"
+
+    // $ANTLR start "T__12"
+    public final void mT__12() throws RecognitionException {
+        try {
+            int _type = T__12;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Expr.g:6:7: ( '-' )
+            // Expr.g:6:9: '-'
+            {
+            match('-'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__12"
+
+    // $ANTLR start "T__13"
+    public final void mT__13() throws RecognitionException {
+        try {
+            int _type = T__13;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Expr.g:7:7: ( '=' )
+            // Expr.g:7:9: '='
+            {
+            match('='); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "T__13"
@@ -166,7 +175,7 @@ public class ExprLexer extends Lexer {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>='A' && LA1_0<='Z')||(LA1_0>='a' && LA1_0<='z')) ) {
+                if ( ((LA1_0 >= 'A' && LA1_0 <= 'Z')||(LA1_0 >= 'a' && LA1_0 <= 'z')) ) {
                     alt1=1;
                 }
 
@@ -175,14 +184,14 @@ public class ExprLexer extends Lexer {
             	case 1 :
             	    // Expr.g:
             	    {
-            	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	    if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
-
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;}
+            	        throw mse;
+            	    }
 
 
             	    }
@@ -204,6 +213,7 @@ public class ExprLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ID"
@@ -223,16 +233,24 @@ public class ExprLexer extends Lexer {
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( ((LA2_0>='0' && LA2_0<='9')) ) {
+                if ( ((LA2_0 >= '0' && LA2_0 <= '9')) ) {
                     alt2=1;
                 }
 
 
                 switch (alt2) {
             	case 1 :
-            	    // Expr.g:43:9: '0' .. '9'
+            	    // Expr.g:
             	    {
-            	    matchRange('0','9'); 
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
 
             	    }
             	    break;
@@ -253,6 +271,7 @@ public class ExprLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "INT"
@@ -283,6 +302,7 @@ public class ExprLexer extends Lexer {
 
             }
 
+
             match('\n'); 
 
             }
@@ -291,6 +311,7 @@ public class ExprLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "NEWLINE"
@@ -321,12 +342,12 @@ public class ExprLexer extends Lexer {
             	    {
             	    if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
             	        input.consume();
-
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;}
+            	        throw mse;
+            	    }
 
 
             	    }
@@ -341,6 +362,7 @@ public class ExprLexer extends Lexer {
                 cnt4++;
             } while (true);
 
+
             skip();
 
             }
@@ -349,6 +371,7 @@ public class ExprLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "WS"
@@ -357,32 +380,32 @@ public class ExprLexer extends Lexer {
         // Expr.g:1:8: ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | ID | INT | NEWLINE | WS )
         int alt5=10;
         switch ( input.LA(1) ) {
-        case '=':
+        case '(':
             {
             alt5=1;
             }
             break;
-        case '+':
+        case ')':
             {
             alt5=2;
             }
             break;
-        case '-':
+        case '*':
             {
             alt5=3;
             }
             break;
-        case '*':
+        case '+':
             {
             alt5=4;
             }
             break;
-        case '(':
+        case '-':
             {
             alt5=5;
             }
             break;
-        case ')':
+        case '=':
             {
             alt5=6;
             }
@@ -474,6 +497,7 @@ public class ExprLexer extends Lexer {
                 new NoViableAltException("", 5, 0, input);
 
             throw nvae;
+
         }
 
         switch (alt5) {
@@ -482,12 +506,14 @@ public class ExprLexer extends Lexer {
                 {
                 mT__8(); 
 
+
                 }
                 break;
             case 2 :
                 // Expr.g:1:15: T__9
                 {
                 mT__9(); 
+
 
                 }
                 break;
@@ -496,12 +522,14 @@ public class ExprLexer extends Lexer {
                 {
                 mT__10(); 
 
+
                 }
                 break;
             case 4 :
                 // Expr.g:1:26: T__11
                 {
                 mT__11(); 
+
 
                 }
                 break;
@@ -510,12 +538,14 @@ public class ExprLexer extends Lexer {
                 {
                 mT__12(); 
 
+
                 }
                 break;
             case 6 :
                 // Expr.g:1:38: T__13
                 {
                 mT__13(); 
+
 
                 }
                 break;
@@ -524,12 +554,14 @@ public class ExprLexer extends Lexer {
                 {
                 mID(); 
 
+
                 }
                 break;
             case 8 :
                 // Expr.g:1:47: INT
                 {
                 mINT(); 
+
 
                 }
                 break;
@@ -538,12 +570,14 @@ public class ExprLexer extends Lexer {
                 {
                 mNEWLINE(); 
 
+
                 }
                 break;
             case 10 :
                 // Expr.g:1:59: WS
                 {
                 mWS(); 
+
 
                 }
                 break;
