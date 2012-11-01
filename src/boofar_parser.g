@@ -18,9 +18,7 @@ program : statement+ ;
 statement : ( declaration | expression ) SEMICOLON ;
 
 expression :
-		atomic_expression
-	|	assignment
-	|	unary_operation
+		assignment
 	|	binary_operation
 	;
 
@@ -34,9 +32,9 @@ declaration : IDENTIFIER IDENTIFIER ;
 
 assignment : IDENTIFIER EQUALS expression ;
 
-unary_operation : UNARY_OPERATOR expression ;
+unary_operation : atomic_expression | UNARY_OPERATOR expression ;
 
-binary_operation : expression BINARY_OPERATOR expression ;
+binary_operation : unary_operation ( BINARY_OPERATOR expression )* ;
 
 literal :
 		(

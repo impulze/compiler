@@ -39,8 +39,8 @@ SEMICOLON : ';';
 // STRING_LITERAL : '"' (ESCAPE|~('\\'|'"'))* '"';
 WHITESPACE : (NEWLINE|'\t'|' ') {$channel=HIDDEN;};
 
-fragment BINARY_OPERATOR : '+' | '-' | '*' | '/' | '^' | '==' | '!=' | '<' | '>' | '<=' | '>=' | '&&' | '||' ;
-fragment UNARY_OPERATOR : '-' | '!' | '~' ;
+fragment BINARY_OPERATOR : ( '+' | '-' | '*' | '/' | '^' | '==' | '!=' | '<' | '>' | '<=' | '>=' | '&&' | '||' ) ;
+fragment UNARY_OPERATOR : ( '-' | '!' | '~' ) ;
 fragment OCT_DIGIT : '0'..'7';
 fragment HEX_DIGIT : '0'..'9'|'A'..'F'|'a'..'f';
 fragment DEC_DIGIT : '0'..'9';
