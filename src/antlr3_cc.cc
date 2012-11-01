@@ -4,7 +4,8 @@ namespace antlr3
 {
 	input_stream::input_stream(std::string const &filename)
 	{
-		ANTLR3_UINT8 const *uint8_filename = reinterpret_cast<ANTLR3_UINT8 const *>(filename.c_str());
+		ANTLR3_UINT8 *uint8_filename = const_cast<ANTLR3_UINT8 *>(reinterpret_cast<ANTLR3_UINT8 const *>(filename.c_str()));
+
 #ifndef ANTLR3_ENC_UTF8
 		ANTLR3_INPUT_STREAM *input = antlr3AsciiFileStreamNew(uint8_filename);
 		if (input)
@@ -12,8 +13,9 @@ namespace antlr3
 			antlr3UCS2SetupStream(input, ANTLR3_CHARSTREAM);
 		}
 #else
-		ANTLR3_INPUT_STREAM *input = antlr3FileStreamNew(const_cast<ANTLR3_UINT8 *>(uint8_filename), ANTLR3_ENC_UTF8);
+		ANTLR3_INPUT_STREAM *input = antlr3FileStreamNew(uint8_filename, ANTLR3_ENC_UTF8);
 #endif
+
 		if (!input)
 		{
 			throw std::runtime_error("Unable to create input filename for ANTLR3");
@@ -66,7 +68,7 @@ namespace antlr3
 			result.push_back(common_token(token));
 		}
 
-		shared_impl_->reset(shared_impl_.get());
+		shared_impl_.reset(shared_impl_.get());
 
 		return result;
 	}
