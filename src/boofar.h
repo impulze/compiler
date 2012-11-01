@@ -33,7 +33,7 @@ namespace boofar
 			hex_literal = HEX_LITERAL,
 			dec_literal = DEC_LITERAL,
 			float_literal = FLOAT_LITERAL,
-			string_literal = STRING_LITERAL,
+			//string_literal = STRING_LITERAL,
 			identifier = IDENTIFIER,
 			comment = COMMENT,
 			newline = NEWLINE

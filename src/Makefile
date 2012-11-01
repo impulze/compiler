@@ -1,5 +1,5 @@
-CC = clang -m32 -ggdb3
-CXX = clang++ -std=c++11 -m32 -ggdb3
+CC = clang -ggdb3
+CXX = clang++ -std=c++0x -ggdb3
 ANTLR = antlr
 ANTLRC_INSTALL = /usr/local
 WARNFLAGS = -Wall -Wextra
@@ -64,3 +64,4 @@ clean:
 	$(RM) $(PARSER_GEN) $(LEXER_GEN)
 
 -include $(DEPS)
+-include config.mk
