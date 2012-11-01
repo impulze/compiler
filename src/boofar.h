@@ -20,9 +20,15 @@ namespace boofar
 	public:
 		explicit parser(antlr3::token_stream &);
 
-		antlr3::generic_parse_return parse();
-		antlr3::generic_parse_return literals();
-		antlr3::generic_parse_return simple_assignment();
+		antlr3::generic_parse_return program();
+		antlr3::generic_parse_return statement();
+		antlr3::generic_parse_return expression();
+		antlr3::generic_parse_return atomic_expression();
+		antlr3::generic_parse_return declaration();
+		antlr3::generic_parse_return assignment();
+		antlr3::generic_parse_return unary_operation();
+		antlr3::generic_parse_return binary_operation();
+		antlr3::generic_parse_return literal();
 	};
 
 	namespace types

@@ -17,9 +17,9 @@ namespace boofar
 	{
 	}
 
-	antlr3::generic_parse_return parser::parse()
+	antlr3::generic_parse_return parser::program()
 	{
-		auto result = wrapped_call(get_specific_impl()->parse);
+		auto result = wrapped_call(get_specific_impl()->program);
 		return {
 			antlr3::common_token(result.start),
 			antlr3::common_token(result.stop),
@@ -27,9 +27,9 @@ namespace boofar
 		};
 	}
 
-	antlr3::generic_parse_return parser::literals()
+	antlr3::generic_parse_return parser::statement()
 	{
-		auto result = wrapped_call(get_specific_impl()->literals);
+		auto result = wrapped_call(get_specific_impl()->statement);
 		return {
 			antlr3::common_token(result.start),
 			antlr3::common_token(result.stop),
@@ -37,9 +37,69 @@ namespace boofar
 		};
 	}
 
-	antlr3::generic_parse_return parser::simple_assignment()
+	antlr3::generic_parse_return parser::expression()
 	{
-		auto result = wrapped_call(get_specific_impl()->simple_assignment);
+		auto result = wrapped_call(get_specific_impl()->expression);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::atomic_expression()
+	{
+		auto result = wrapped_call(get_specific_impl()->atomic_expression);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::declaration()
+	{
+		auto result = wrapped_call(get_specific_impl()->declaration);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::assignment()
+	{
+		auto result = wrapped_call(get_specific_impl()->assignment);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::unary_operation()
+	{
+		auto result = wrapped_call(get_specific_impl()->unary_operation);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::binary_operation()
+	{
+		auto result = wrapped_call(get_specific_impl()->binary_operation);
+		return {
+			antlr3::common_token(result.start),
+			antlr3::common_token(result.stop),
+			antlr3::base_tree(result.tree)
+		};
+	}
+
+	antlr3::generic_parse_return parser::literal()
+	{
+		auto result = wrapped_call(get_specific_impl()->literal);
 		return {
 			antlr3::common_token(result.start),
 			antlr3::common_token(result.stop),
