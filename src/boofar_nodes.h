@@ -7,6 +7,16 @@ namespace boofar
 {
 	namespace nodes
 	{
+		class generic
+		{
+		public:
+			virtual types::type get_type() const = 0;
+			virtual std::string to_string() const = 0;
+
+		private:
+			std::string build_string(std::string value) const;
+		};
+
 		class identifier : generic
 		{
 			std::string name;

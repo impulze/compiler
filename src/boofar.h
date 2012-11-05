@@ -47,14 +47,4 @@ namespace boofar
 	}
 
 	typedef types::type type;
-
-	namespace nodes
-	{
-		class generic
-		{
-		public:
-			virtual std::string as_string() const = 0;
-			virtual types::type get_type() const = 0;
-		};
-	}
 }
