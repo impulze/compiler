@@ -1,3 +1,6 @@
+#ifndef _BOOFAR_H_
+#define _BOOFAR_H_
+
 #include "antlr3_cc.h"
 #include "boofar_lexer.h"
 #include "boofar_parser.h"
@@ -48,3 +51,5 @@ namespace boofar
 
 	typedef types::type type;
 }
+
+#endif
