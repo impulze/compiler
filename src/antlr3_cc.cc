@@ -64,8 +64,6 @@ namespace antlr3
 			result.push_back(common_token(token));
 		}
 
-		shared_impl_.reset(shared_impl_.get());
-
 		return result;
 	}
 
