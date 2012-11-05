@@ -34,7 +34,7 @@ assignment : IDENTIFIER EQUALS expression ;
 
 unary_operation : atomic_expression | UNARY_OPERATOR expression ;
 
-binary_operation : unary_operation ( BINARY_OPERATOR expression )* ;
+binary_operation : unary_operation BINARY_OPERATOR expression ;
 
 literal :
 		(
