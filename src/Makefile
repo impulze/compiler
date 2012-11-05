@@ -14,7 +14,7 @@ PARSER_OBJS = boofar_parser.o boofar_parser_debug.o
 PARSER_GEN = boofar_parser.h boofar_parser.c boofar_parser.tokens
 LEXER_OBJS = boofar_lexer.o boofar_lexer_debug.o
 LEXER_GEN = boofar_lexer.h boofar_lexer.c boofar_lexer.tokens
-COMMON_OBJS = antlr3_cc.o boofar.o $(PARSER_OBJS) $(LEXER_OBJS)
+COMMON_OBJS = antlr3_cc.o boofar.o boofar_nodes.o $(PARSER_OBJS) $(LEXER_OBJS)
 COMPILER_OBJS = compiler.o $(COMMON_OBJS)
 TESTS_OBJS = tests/suite.o tests/tokens.o $(COMMON_OBJS)
 
