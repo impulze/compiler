@@ -8,10 +8,6 @@ namespace antlr3
 
 #ifndef ANTLR3_ENC_UTF8
 		ANTLR3_INPUT_STREAM *input = antlr3AsciiFileStreamNew(uint8_filename);
-		if (input)
-		{
-			antlr3UCS2SetupStream(input, ANTLR3_CHARSTREAM);
-		}
 #else
 		ANTLR3_INPUT_STREAM *input = antlr3FileStreamNew(uint8_filename, ANTLR3_ENC_UTF8);
 #endif
