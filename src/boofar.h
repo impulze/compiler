@@ -38,14 +38,17 @@ namespace boofar
 	{
 		enum type
 		{
-			oct_literal = OCT_LITERAL,
-			hex_literal = HEX_LITERAL,
+			comment = COMMENT,
 			dec_literal = DEC_LITERAL,
 			float_literal = FLOAT_LITERAL,
-			//string_literal = STRING_LITERAL,
+			hex_literal = HEX_LITERAL,
 			identifier = IDENTIFIER,
-			comment = COMMENT,
-			newline = NEWLINE
+			newline = NEWLINE,
+			oct_literal = OCT_LITERAL,
+			//string_literal = STRING_LITERAL,
+
+			// FIXME the following types are not associated with an antlr makro
+			declaration,
 		};
 	}
 

@@ -12,6 +12,7 @@ namespace boofar
 		class generic
 		{
 		public:
+			virtual std::string get_string_value() const = 0;
 			types::type get_type() const;
 			std::string to_string() const;
 
@@ -21,34 +22,70 @@ namespace boofar
 		private:
 			static std::unordered_map<int, std::string> type_names;
 			const types::type type;
-			virtual std::string get_string_value() const = 0;
 		};
 
 		class identifier : generic
 		{
 		public:
 			identifier(const std::string &name);
+			std::string get_string_value() const override;
 
 		private:
 			std::string name;
-			std::string get_string_value() const override;
 		};
+
+			class declaration : generic
+			{
+			public:
+				declaration(const identifier *type, const identifier *name):
+					generic(types::declaration), type(type), name(name){}
+				std::string get_string_value() const override;
+			
+			private:
+				const identifier *name;
+				const identifier *type;
+			};
 
 		class literal : generic
 		{
+		public:
+			std::string get_string_value() const override;
+
 		protected:
-			literal(types::type type, const std::string &constructor);
+			literal(types::type type, const std::string &constructor):
+				generic(type), constructor(constructor) {}
 
 		private:
 			std::string constructor;
-			std::string get_string_value() const override;
 		};
 
-		class decimal_literal : literal
-		{
-		public:
-			decimal_literal(const std::string &constructor);
-		};
+			class decimal_literal : public literal
+			{
+			public:
+				decimal_literal(const std::string &constructor):
+					literal(types::dec_literal, constructor) {}
+			};
+
+			class float_literal : literal
+			{
+			public:
+				float_literal(const std::string &constructor):
+					literal(types::float_literal, constructor) {}
+			};
+
+			class hexadecimal_literal : literal
+			{
+			public:
+				hexadecimal_literal(const std::string &constructor):
+					literal(types::hex_literal, constructor) {}
+			};
+
+			class octal_literal : literal
+			{
+			public:
+				octal_literal(const std::string &constructor):
+					literal(types::oct_literal, constructor) {}
+			};
 	};
 };
 
