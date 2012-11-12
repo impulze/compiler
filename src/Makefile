@@ -50,6 +50,7 @@ boofar_%.o: WARNFLAGS = -w
 boofar_parser.g: boofar_lexer.tokens
 compiler.o \
 boofar.o \
+boofar_nodes.o \
 boofar_lexer_debug.o \
 tests/tokens.o: boofar_lexer.h boofar_parser.h
 boofar_lexer_debug.o: boofar_lexer.h
