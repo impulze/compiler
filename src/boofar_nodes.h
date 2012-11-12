@@ -1,8 +1,10 @@
 #ifndef _BOOFAR_NODES_H_
 #define _BOOFAR_NODES_H_
 
-#include <unordered_map>
 #include "boofar_types.h"
+
+#include <unordered_map>
+#include <string>
 
 namespace boofar
 {

@@ -13,6 +13,13 @@ options
 	void boofar_parser_debug(ANTLR3_STRING *string);
 }
 
+@includes
+{
+	#include "boofar_nodes.h"
+
+	namespace bn = boofar::nodes;
+}
+
 program : statement+ ;
 
 statement :
