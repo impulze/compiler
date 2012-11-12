@@ -1,4 +1,4 @@
-CC = clang -ggdb3
+CC = clang++ -std=c++0x -ggdb3
 CXX = clang++ -std=c++0x -ggdb3
 ANTLR = antlr
 ANTLRC_INSTALL = /usr/local

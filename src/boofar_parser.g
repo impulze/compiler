@@ -15,9 +15,13 @@ options
 
 @includes
 {
+	#include "antlr3_cc.h"
 	#include "boofar_nodes.h"
 
+	#include <memory>
+
 	namespace bn = boofar::nodes;
+	using std::unique_ptr;
 }
 
 program : statement+ ;
@@ -37,8 +41,15 @@ atomic_expression :
 	|	LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
 	;
 
-declaration returns [ boofar::nodes::declaration node ] :
-		type=IDENTIFIER name=IDENTIFIER { $node(type, name) } ;
+declaration returns [ unique_ptr<bn::declaration> node ] :
+		type=IDENTIFIER name=IDENTIFIER {
+			auto typestr = antlr3::common_token(type);
+			auto namestr = antlr3::common_token(name);
+			auto typeid_ = bn::identifier(typestr.to_string());
+			auto nameid_ = bn::identifier(namestr.to_string());
+
+			$node.reset(new bn::declaration(&typeid_, &nameid_));
+		} ;
 
 parameter_list : ( declaration ( COMMA declaration )* )? ;
 
