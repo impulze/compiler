@@ -33,27 +33,6 @@ namespace boofar
 		antlr3::generic_parse_return binary_operation();
 		antlr3::generic_parse_return literal();
 	};
-
-	namespace types
-	{
-		enum type
-		{
-			comment = COMMENT,
-			dec_literal = DEC_LITERAL,
-			float_literal = FLOAT_LITERAL,
-			hex_literal = HEX_LITERAL,
-			identifier = IDENTIFIER,
-			newline = NEWLINE,
-			oct_literal = OCT_LITERAL,
-			//string_literal = STRING_LITERAL,
-
-			// FIXME the following types are not associated with an antlr makro
-			atomic_expression,
-			declaration,
-		};
-	}
-
-	typedef types::type type;
 }
 
 #endif

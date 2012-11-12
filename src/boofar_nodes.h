@@ -2,7 +2,7 @@
 #define _BOOFAR_NODES_H_
 
 #include <unordered_map>
-#include "boofar.h"
+#include "boofar_types.h"
 
 namespace boofar
 {
@@ -37,10 +37,15 @@ namespace boofar
 			class declaration : generic
 			{
 			public:
-				declaration(const identifier *type, const identifier *name):
-					generic(types::declaration), type(type), name(name){}
+				declaration(const identifier *type, const identifier *name)
+					: generic(types::declaration),
+					  name(name),
+					  type(type)
+				{
+				}
+
 				std::string get_string_value() const override;
-			
+
 			private:
 				const identifier *name;
 				const identifier *type;
