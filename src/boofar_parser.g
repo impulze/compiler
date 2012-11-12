@@ -37,7 +37,7 @@ atomic_expression :
 	|	LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
 	;
 
-declaration returns [ boofar::nodes::declaration &&node ] :
+declaration returns [ boofar::nodes::declaration node ] :
 		type=IDENTIFIER name=IDENTIFIER { $node(type, name) } ;
 
 parameter_list : ( declaration ( COMMA declaration )* )? ;
