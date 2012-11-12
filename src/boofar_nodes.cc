@@ -21,8 +21,10 @@ namespace boofar
 		// generic
 		std::string generic::to_string() const
 		{
-			return (std::ostringstream() << '<' << type_names[type] << ':' <<
-				get_string_value() << '>').str();
+			std::ostringstream strm;
+			strm << '<' << type_names[type] << ':' <<
+				get_string_value() << '>';
+			return strm.str();
 		}
 
 		// identifier
