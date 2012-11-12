@@ -9,8 +9,6 @@ options
 
 @header
 {
-	#include <antlr3.h>
-	void boofar_parser_debug(ANTLR3_STRING *string);
 }
 
 @includes
@@ -18,10 +16,13 @@ options
 	#include "antlr3_cc.h"
 	#include "boofar_nodes.h"
 
+	#include <antlr3.h>
 	#include <memory>
 
 	namespace bn = boofar::nodes;
 	using std::unique_ptr;
+
+	void boofar_parser_debug(ANTLR3_STRING *string);
 }
 
 program : statement+ ;

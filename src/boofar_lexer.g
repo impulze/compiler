@@ -5,7 +5,7 @@ options
 	language = C;
 }
 
-@header
+@includes
 {
 	#include <antlr3.h>
 
