@@ -19,7 +19,10 @@ namespace boofar
 			std::string to_string() const;
 
 		protected:
-			generic(types::type type);
+			generic(types::type type)
+				: type(type)
+			{
+			}
 
 		private:
 			static std::unordered_map<int, std::string> type_names;
@@ -29,7 +32,12 @@ namespace boofar
 		class identifier : generic
 		{
 		public:
-			identifier(const std::string &name);
+			identifier(const std::string &name)
+				: generic(types::identifier),
+				  name(name)
+			{
+			}
+
 			std::string get_string_value() const override;
 
 		private:
