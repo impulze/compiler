@@ -48,6 +48,7 @@ namespace boofar
 			//string_literal = STRING_LITERAL,
 
 			// FIXME the following types are not associated with an antlr makro
+			atomic_expression,
 			declaration,
 		};
 	}

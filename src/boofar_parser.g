@@ -10,12 +10,16 @@ options
 @header
 {
 	#include <antlr3.h>
+	// #include "boofar_nodes.h"
 	void boofar_parser_debug(ANTLR3_STRING *string);
+	// using namespace boofar;
 }
 
 program : statement+ ;
 
-statement : ( declaration | expression ) SEMICOLON ;
+statement :
+		( declaration | expression ) SEMICOLON
+	|	function_definition ;
 
 expression :
 		assignment
@@ -28,7 +32,12 @@ atomic_expression :
 	|	LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
 	;
 
-declaration : IDENTIFIER IDENTIFIER ;
+declaration returns [ boofar::nodes::declaration &&node ] :
+		type=IDENTIFIER name=IDENTIFIER { $node(type, name) } ;
+
+parameter_list : ( declaration ( COMMA declaration )* )? ;
+
+function_definition : FUNCTION IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACE statement+ RIGHT_BRACE ;
 
 assignment : IDENTIFIER EQUALS expression ;
 
