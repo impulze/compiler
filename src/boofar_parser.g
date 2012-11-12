@@ -10,9 +10,7 @@ options
 @header
 {
 	#include <antlr3.h>
-	// #include "boofar_nodes.h"
 	void boofar_parser_debug(ANTLR3_STRING *string);
-	// using namespace boofar;
 }
 
 program : statement+ ;
