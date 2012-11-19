@@ -45,6 +45,14 @@ declaration returns [ boofar::nodes::declaration *node ]
 		type=identifier name=identifier
 		{ node = new boofar::nodes::declaration(type, name); }
 	;
+/*
+declaration returns [ boofar::nodes::declaration *node ] :
+		type=IDENTIFIER name=IDENTIFIER {
+			auto type_id = new boofar::nodes::identifier($type.text);
+			auto name_id = new boofar::nodes::identifier($name.text);
+			$node = new boofar::nodes::declaration(type_id, name_id);
+		} ;
+*/
 
 parameter_list : ( declaration ( COMMA declaration )* )? ;
 
