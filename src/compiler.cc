@@ -40,26 +40,27 @@ int main(int argc, char *argv[])
 	}
 
 	ANTLR_UINT8 const *antlr_filename = reinterpret_cast<ANTLR_UINT8 const *>(filename);
-	boofar::traits::InputStreamType *input = new boofar::traits::InputStreamType(antlr_filename, ANTLR_ENC_8BIT);
-	boofar::lexer *lexer = new boofar::lexer(input);
-	boofar::traits::TokenStreamType *token_stream = new boofar::traits::TokenStreamType(ANTLR_SIZE_HINT, lexer->get_tokSource());
+	boofar::traits::InputStreamType input(antlr_filename, ANTLR_ENC_8BIT);
+	boofar::lexer lexer(&input);
+	boofar::traits::TokenStreamType token_stream(ANTLR_SIZE_HINT, lexer.get_tokSource());
 
 	if (argc == 3)
 	{
-#if 0
-		std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
+		token_stream.fillBuffer();
+		auto tokens = token_stream.get_tokens();
 
-		for (antlr3::common_token &token: tokens)
+		std::cout << tokens.size() << std::endl;
+
+		for (boofar::traits::TokenStreamType::TokenType &token: tokens)
 		{
-			std::cout << "token: " << token.to_string() << std::endl;
+			std::cout << "token: " << token.getText() << std::endl;
 		}
-#endif
 	}
 	else
 	{
-		boofar::parser *parser = new boofar::parser(token_stream);
+		boofar::parser parser(&token_stream);
 
-		auto result = parser->declaration();
+		auto result = parser.declaration();
 		std::cout << result << std::endl;
 	}
 
