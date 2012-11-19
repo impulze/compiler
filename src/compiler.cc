@@ -1,5 +1,6 @@
 #include "boofar_lexer.h"
 #include "boofar_parser.h"
+#include "boofar_prettyprinter.h"
 #include "boofar_traits.h"
 
 #include <iostream>
@@ -90,6 +91,8 @@ int main(int argc, char *argv[])
 		else if (passed(args, "prettyprint"))
 		{
 			cout << "pretty printing:\n";
+
+			boofar::visitors::prettyprinter prettyprinter(cout);
 		}
 	}
 	else
