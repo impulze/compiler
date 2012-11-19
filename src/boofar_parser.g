@@ -40,10 +40,11 @@ atomic_expression :
 	|	LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
 	;
 
-declaration returns [ unique_ptr<bn::declaration> node ] :
-		type=IDENTIFIER name=IDENTIFIER {
-			/*$node.reset(new bn::declaration(&typeid_, &nameid_));*/
-		} ;
+declaration returns [ boofar::nodes::declaration *node ]
+	:
+		type=identifier name=identifier
+		{ node = new boofar::nodes::declaration(type, name); }
+	;
 
 parameter_list : ( declaration ( COMMA declaration )* )? ;
 
@@ -62,4 +63,10 @@ literal :
 		|	HEX_LITERAL {/*boofar_parser_debug($HEX_LITERAL.text);*/}
 		|	FLOAT_LITERAL {/*boofar_parser_debug($FLOAT_LITERAL.text);*/}
 		)+
+	;
+
+identifier returns [ boofar::nodes::identifier *node ]
+	:
+		IDENTIFIER
+		{ node = new boofar::nodes::identifier($IDENTIFIER.text); }
 	;
