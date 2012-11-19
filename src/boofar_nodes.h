@@ -11,39 +11,40 @@ namespace boofar
 {
 	namespace nodes
 	{
-		// forwardings (to be able to declare the classes in an alphabetic order)
+		// forwardings
 		class identifier;
 
 		// declarations
 		class generic
 		{
 		public:
-			virtual std::string get_string_value() const = 0;
 			types::type get_type() const;
-			std::string to_string() const;
+			std::string to_xml() const;
+			std::ostream &to_xml(std::ostream &buffer) const;
 
 		protected:
-			generic(types::type type)
-				: type(type)
-			{
-			}
+			generic(types::type type):
+				type(type)
+			{}
+			virtual void append_inner_xml(std::ostream &buffer) const = 0;
 
 		private:
-			static std::unordered_map<int, std::string> type_names;
+			static std::unordered_map<int, std::string> tag_names;
 			const types::type type;
 		};
 
 			class assignment : public generic
 			{
 			public:
-				assignment(const identifier *variable, const generic *expression)
-					: generic(types::assignment),
-					  expression(expression),
-					  variable(variable)
-				{
-				}
+				assignment(const identifier *variable,
+					const generic *expression):
+					
+					generic(types::assignment), expression(expression),
+						variable(variable)
+				{}
 
-				std::string get_string_value() const override;
+			protected:
+				void append_inner_xml(std::ostream &buffer) const override;
 
 			private:
 				const generic *expression;
@@ -53,11 +54,15 @@ namespace boofar
 			class binary_operation : public generic
 			{
 			public:
-				binary_operation(const std::string &symbol, const generic *left,
-						const generic *right):
-					generic(types::binary_operation), left(left), right(right), symbol(symbol) {}
+				binary_operation(const std::string &symbol,
+					const generic *left, const generic *right):
+					
+					generic(types::binary_operation), left(left), right(right),
+						symbol(symbol)
+				{}
 
-				std::string get_string_value() const override;
+			protected:
+				void append_inner_xml(std::ostream &buffer) const override;
 
 			private:
 				const generic *left;
@@ -68,13 +73,12 @@ namespace boofar
 			class identifier : public generic
 			{
 			public:
-				identifier(const std::string &name)
-					: generic(types::identifier),
-					  name(name)
-				{
-				}
+				identifier(const std::string &name):
+					generic(types::identifier), name(name)
+				{}
 
-				std::string get_string_value() const override;
+			protected:
+				void append_inner_xml(std::ostream &buffer) const override;
 
 			private:
 				const std::string name;
@@ -83,14 +87,12 @@ namespace boofar
 			class declaration : public generic
 			{
 			public:
-				declaration(const identifier *type, const identifier *name)
-					: generic(types::declaration),
-					  name(name),
-					  type(type)
-				{
-				}
+				declaration(const identifier *type, const identifier *name):
+					generic(types::declaration), name(name), type(type)
+				{}
 
-				std::string get_string_value() const override;
+			protected:
+				void append_inner_xml(std::ostream &buffer) const override;
 
 			private:
 				const identifier *name;
@@ -99,12 +101,11 @@ namespace boofar
 
 			class literal : public generic
 			{
-			public:
-				std::string get_string_value() const override;
-
 			protected:
 				literal(types::type type, const std::string &constructor):
-					generic(type), constructor(constructor) {}
+					generic(type), constructor(constructor)
+				{}
+				void append_inner_xml(std::ostream &buffer) const override;
 
 			private:
 				const std::string constructor;
@@ -144,12 +145,16 @@ namespace boofar
 				parameter_list(const std::vector<declaration *> &&parameters):
 					generic(types::parameter_list), parameters(parameters) {}
 
-				std::string get_string_value() const override;
+			protected:
+				void append_inner_xml(std::ostream &buffer) const override;
 
 			private:
 				const std::vector<declaration *> parameters;
 			};
 	};
 };
+
+std::ostream &operator<<(std::ostream &stream,
+		const boofar::nodes::generic &node);
 
 #endif
