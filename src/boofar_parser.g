@@ -40,9 +40,11 @@ atomic_expression :
 	|	LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
 	;
 
-declaration returns [ unique_ptr<bn::declaration> node ] :
+declaration returns [ boofar::nodes::declaration *node ] :
 		type=IDENTIFIER name=IDENTIFIER {
-			/*$node.reset(new bn::declaration(&typeid_, &nameid_));*/
+			auto type_id = new boofar::nodes::identifier($type.text);
+			auto name_id = new boofar::nodes::identifier($name.text);
+			$node = new boofar::nodes::declaration(type_id, name_id);
 		} ;
 
 parameter_list : ( declaration ( COMMA declaration )* )? ;
