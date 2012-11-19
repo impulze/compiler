@@ -1,5 +1,6 @@
 /src/*.o
 /src/compiler
+/src/config.mk
 /src/deps/
 /src/*_lexer.cpp
 /src/*_lexer.hpp
