@@ -13,7 +13,7 @@ PARSER_GEN = boofar_parser.hpp boofar_parser.cpp boofar_parser.tokens
 LEXER_OBJS = boofar_lexer.o
 # boofar_lexer_debug.o
 LEXER_GEN = boofar_lexer.hpp boofar_lexer.cpp boofar_lexer.tokens
-COMMON_OBJS = boofar.o boofar_nodes.o $(PARSER_OBJS) $(LEXER_OBJS)
+COMMON_OBJS = boofar_nodes.o $(PARSER_OBJS) $(LEXER_OBJS)
 COMPILER_OBJS = compiler.o $(COMMON_OBJS)
 TESTS_OBJS = tests/suite.o tests/tokens.o $(COMMON_OBJS)
 

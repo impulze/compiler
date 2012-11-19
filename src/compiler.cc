@@ -4,27 +4,56 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
-static void usage()
+using std::cerr;
+using std::cout;
+using std::runtime_error;
+using std::string;
+using std::vector;
+
+struct argument
 {
-	std::cerr << "parsing:       ./compiler <filename>\n"
-	             "tokenize only: ./compiler --tokenize <filename>\n";
+	string help;
+	string param;
+	bool passed;
+};
 
-	throw std::runtime_error("illegal arguments");
+namespace
+{
+	inline bool passed(vector<argument> const &args, string const &param);
+	inline void usage(vector<argument> const &args);
 }
 
 int main(int argc, char *argv[])
 {
+	vector<argument> args = {
+		{ "tokenize only", "tokenize", false },
+		{ "print the AST", "prettyprint", false },
+	};
+
 	if (argc < 2 || argc > 3)
 	{
-		usage();
+		usage(args);
 	}
 
 	if (argc == 3)
 	{
-		if (std::string(argv[1]) != "--tokenize")
+		bool found = false;
+
+		for (auto &arg: args)
 		{
-			usage();
+			if (string(argv[1]) == ("--" + arg.param))
+			{
+				found = true;
+				arg.passed = true;
+			}
+		}
+
+		if (!found)
+		{
+			usage(args);
 		}
 	}
 
@@ -46,23 +75,60 @@ int main(int argc, char *argv[])
 
 	if (argc == 3)
 	{
-		token_stream.fillBuffer();
-		auto tokens = token_stream.get_tokens();
-
-		std::cout << tokens.size() << std::endl;
-
-		for (boofar::traits::TokenStreamType::TokenType &token: tokens)
+		if (passed(args, "tokenize"))
 		{
-			std::cout << "token: " << token.getText() << std::endl;
+			token_stream.fillBuffer();
+			auto tokens = token_stream.get_tokens();
+
+			cout << "tokenizing:\n";
+
+			for (boofar::traits::TokenStreamType::TokenType &token: tokens)
+			{
+				cout << "token: " << token.getText() << '\n';
+			}
+		}
+		else if (passed(args, "prettyprint"))
+		{
+			cout << "pretty printing:\n";
 		}
 	}
 	else
 	{
+		cout << "declaration:\n";
+
 		boofar::parser parser(&token_stream);
 
 		auto result = parser.declaration();
-		std::cout << result << std::endl;
+		cout << result << '\n';
 	}
 
 	return 0;
+}
+
+namespace
+{
+	bool passed(vector<argument> const &args, string const &param)
+	{
+		for (auto &arg: args)
+		{
+			if (arg.param == param)
+			{
+				return arg.passed;
+			}
+		}
+
+		return false;
+	}
+
+	void usage(vector<argument> const &args)
+	{
+		cerr << "parsing: ./compiler <filename>\n";
+
+		for (auto const &arg: args)
+		{
+			cerr << arg.help << ": ./compiler --" << arg.param << " <filename>\n";
+		}
+
+		throw runtime_error("illegal arguments");
+	}
 }
