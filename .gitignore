@@ -1,8 +1,10 @@
 /src/*.o
 /src/compiler
 /src/deps/
-/src/*_lexer.[ch]
-/src/*_parser.[ch]
+/src/*_lexer.cpp
+/src/*_lexer.hpp
+/src/*_parser.cpp
+/src/*_parser.hpp
 /src/*.tokens
 /src/tests/*.o
 /src/tests/suite

@@ -1,6 +1,9 @@
-#include "boofar.h"
+#include "boofar_lexer.h"
+#include "boofar_parser.h"
+#include "boofar_traits.h"
 
 #include <iostream>
+#include <stdexcept>
 
 static void usage()
 {
@@ -36,10 +39,11 @@ int main(int argc, char *argv[])
 		filename = argv[1];
 	}
 
-	antlr3::input_stream input_stream(filename);
-	boofar::lexer lexer(input_stream);
-	antlr3::token_stream token_stream(lexer);
+	ANTLR_UINT8 const *antlr_filename = reinterpret_cast<ANTLR_UINT8 const *>(filename);
+	boofar::traits::InputStreamType* input = new boofar::traits::InputStreamType(antlr_filename, ANTLR_ENC_8BIT);
+	boofar::lexer *lexer = new boofar::lexer(input);
 
+#if 0
 	if (argc == 3)
 	{
 		std::vector<antlr3::common_token> tokens = token_stream.get_tokens();
@@ -58,6 +62,7 @@ int main(int argc, char *argv[])
 		auto str = tree.to_string_tree();
 		std::cout << str.to_std_string() << std::endl;
 	}
+#endif
 
 	return 0;
 }

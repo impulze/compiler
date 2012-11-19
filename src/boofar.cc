@@ -1,5 +1,8 @@
-#include "boofar.h"
+#include "boofar_lexer.h"
+#include "boofar_parser.h"
 
+
+#if 0
 namespace boofar
 {
 	lexer::lexer(antlr3::input_stream &input_stream)
@@ -107,3 +110,4 @@ namespace boofar
 		};
 	}
 }
+#endif

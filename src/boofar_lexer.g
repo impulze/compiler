@@ -2,22 +2,28 @@ lexer grammar boofar_lexer;
 
 options
 {
-	language = C;
+	language = Cpp;
+}
+
+@namespace
+{
+	generated
 }
 
 @includes
 {
-	#include <antlr3.h>
+	#include "boofar_traits.h"
+	//#include <antlr3.h>
 
-	extern void boofar_lexer_report_error(ANTLR3_BASE_RECOGNIZER *recognizer);
-	extern void (*g_antlr3_report_error)(ANTLR3_BASE_RECOGNIZER *recognizer);
+	//extern void boofar_lexer_report_error(ANTLR3_BASE_RECOGNIZER *recognizer);
+	//extern void (*g_antlr3_report_error)(ANTLR3_BASE_RECOGNIZER *recognizer);
 }
 
 @apifuncs
 {
 	// save previous functions and replace with custom
-	g_antlr3_report_error = RECOGNIZER->reportError;
-	RECOGNIZER->reportError = boofar_lexer_report_error;
+	//g_antlr3_report_error = RECOGNIZER->reportError;
+	//RECOGNIZER->reportError = boofar_lexer_report_error;
 }
 
 COMMENT :
