@@ -1,9 +1,8 @@
 CC = clang++ -std=c++0x -ggdb3
 CXX = clang++ -std=c++0x -ggdb3
 ANTLR = antlr
-ANTLRCPP_INSTALL = /usr/local
 WARNFLAGS = -Wall -Wextra
-COMPFLAGS = $(WARNFLAGS) -I$(ANTLRCPP_INSTALL)/include
+COMPFLAGS = $(WARNFLAGS) -I$(ANTLRCPP)
 CFLAGS = $(COMPFLAGS)
 CXXFLAGS = $(COMPFLAGS)
 
