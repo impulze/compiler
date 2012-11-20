@@ -17,8 +17,10 @@ namespace boofar
 			//string_literal,
 
 			// FIXME the following types are not associated with an antlr makro
-			atomic_expression,
+			assignment,
+			binary_operation,
 			declaration,
+			parameter_list,
 		};
 	}
 

@@ -6,6 +6,8 @@ namespace boofar
 	namespace nodes
 	{
 		class generic;
+		class assignment;
+		class binary_operation;
 		class identifier;
 		class declaration;
 		class literal;
@@ -13,6 +15,7 @@ namespace boofar
 		class float_literal;
 		class hexadecimal_literal;
 		class octal_literal;
+		class parameter_list;
 	}
 
 	namespace visitors
@@ -51,12 +54,15 @@ namespace boofar
 		struct base
 			: detail::base_factory<
 			                       R,
+			                       nodes::assignment,
 			                       nodes::identifier,
+			                       nodes::binary_operation,
 			                       nodes::declaration,
 			                       nodes::decimal_literal,
 			                       nodes::float_literal,
 			                       nodes::hexadecimal_literal,
-			                       nodes::octal_literal
+			                       nodes::octal_literal,
+			                       nodes::parameter_list
 			                      >
 		{
 		};
