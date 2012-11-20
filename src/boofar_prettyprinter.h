@@ -10,7 +10,7 @@ namespace boofar
 	namespace visitors
 	{
 		class prettyprinter
-			: public visitors::base<>
+			: public base<>
 		{
 		public:
 			prettyprinter(std::ostream &output)
@@ -18,7 +18,10 @@ namespace boofar
 			{
 			}
 
-			void visit(boofar::nodes::generic &node) override;
+			using base<>::visit;
+
+			void visit(nodes::declaration &node) override;
+			void visit(nodes::identifier &node) override;
 
 		private:
 			std::ostream &output_;
@@ -27,4 +30,3 @@ namespace boofar
 }
 
 #endif
-

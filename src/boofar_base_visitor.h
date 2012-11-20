@@ -19,28 +19,31 @@ namespace boofar
 	{
 		namespace detail
 		{
-			template <class R = void, class... T>
-			struct base_factory
+			template <class R, class T>
+			struct base_factory_single
 			{
-			};
-
-			template <class R, class T, class... Args>
-			struct base_factory<R, T, Args...>
-				: base_factory<R, Args...>
-			{
-				using base_factory<R, Args...>::visit;
 				virtual R visit(T &)
 				{
 				}
+			};
+
+			template <class R = void, class... T>
+			struct base_factory;
+
+			template <class R, class T, class... Args>
+			struct base_factory<R, T, Args...>
+				: base_factory<R, Args...>,
+				  base_factory_single<R, T>
+			{
+				using base_factory<R, Args...>::visit;
+				using base_factory_single<R, T>::visit;
 			};
 
 			template <class R, class T>
 			struct base_factory<R, T>
-				: base_factory<R>
+				: base_factory_single<R, T>
 			{
-				virtual R visit(T &)
-				{
-				}
+				using base_factory_single<R, T>::visit;
 			};
 		}
 
@@ -48,14 +51,12 @@ namespace boofar
 		struct base
 			: detail::base_factory<
 			                       R,
-			                       boofar::nodes::generic,
-			                       boofar::nodes::identifier,
-			                       boofar::nodes::declaration,
-			                       boofar::nodes::literal,
-			                       boofar::nodes::decimal_literal,
-			                       boofar::nodes::float_literal,
-			                       boofar::nodes::hexadecimal_literal,
-			                       boofar::nodes::octal_literal
+			                       nodes::identifier,
+			                       nodes::declaration,
+			                       nodes::decimal_literal,
+			                       nodes::float_literal,
+			                       nodes::hexadecimal_literal,
+			                       nodes::octal_literal
 			                      >
 		{
 		};

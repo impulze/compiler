@@ -1,3 +1,4 @@
+#include "boofar_code_generator.h"
 #include "boofar_lexer.h"
 #include "boofar_parser.h"
 #include "boofar_prettyprinter.h"
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
 	vector<argument> args = {
 		{ "tokenize only", "tokenize", false },
 		{ "print the AST", "prettyprint", false },
+		{ "generate code", "codegen", false },
 	};
 
 	if (argc < 2 || argc > 3)
@@ -92,7 +94,23 @@ int main(int argc, char *argv[])
 		{
 			cout << "pretty printing:\n";
 
+			boofar::parser parser(&token_stream);
 			boofar::visitors::prettyprinter prettyprinter(cout);
+
+			// FIXME: there's no program node yet
+			//parser.program()->accept(prettyprinter);
+			parser.declaration()->accept(prettyprinter);
+		}
+		else if (passed(args, "codegen"))
+		{
+			cout << "code generation:\n";
+
+			boofar::parser parser(&token_stream);
+			boofar::visitors::code_generator code_generator;
+
+			// FIXME: there's no program node yet
+			//parser.program()->accept(code_generator);
+			parser.declaration()->accept(code_generator);
 		}
 	}
 	else
@@ -101,8 +119,9 @@ int main(int argc, char *argv[])
 
 		boofar::parser parser(&token_stream);
 
-		auto result = parser.declaration();
-		cout << result << '\n';
+		// FIXME: there's no program node yet
+		//cout << parser.program()->program() << '\n';
+		cout << parser.declaration() << '\n';
 	}
 
 	return 0;

@@ -14,7 +14,7 @@ LEXER_OBJS = boofar_lexer.o
 # boofar_lexer_debug.o
 LEXER_GEN = boofar_lexer.hpp boofar_lexer.cpp boofar_lexer.tokens
 COMMON_OBJS = boofar_nodes.o $(PARSER_OBJS) $(LEXER_OBJS)
-COMPILER_OBJS = boofar_prettyprinter.o compiler.o $(COMMON_OBJS)
+COMPILER_OBJS = boofar_code_generator.o boofar_prettyprinter.o compiler.o $(COMMON_OBJS)
 TESTS_OBJS = tests/suite.o tests/tokens.o $(COMMON_OBJS)
 
 # collection variables
