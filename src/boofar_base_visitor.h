@@ -59,11 +59,13 @@ namespace boofar
 			                       nodes::identifier,
 			                       nodes::binary_operation,
 			                       nodes::declaration,
-			                       nodes::decimal_literal,
+								   nodes::generic,
+								   nodes::literal,
+/*			                       nodes::decimal_literal,
 			                       nodes::float_literal,
 			                       nodes::hexadecimal_literal,
 			                       nodes::octal_literal,
-			                       nodes::parameter_list,
+*/			                       nodes::parameter_list,
 								   nodes::unary_operation
 			                      >
 		{
