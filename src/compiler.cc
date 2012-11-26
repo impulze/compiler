@@ -97,9 +97,7 @@ int main(int argc, char *argv[])
 			boofar::parser parser(&token_stream);
 			boofar::visitors::prettyprinter prettyprinter(cout);
 
-			// FIXME: there's no program node yet
-			//parser.program()->accept(prettyprinter);
-			parser.declaration()->accept(prettyprinter);
+			parser.program()->accept(prettyprinter);
 		}
 		else if (passed(args, "codegen"))
 		{
@@ -108,20 +106,16 @@ int main(int argc, char *argv[])
 			boofar::parser parser(&token_stream);
 			boofar::visitors::code_generator code_generator;
 
-			// FIXME: there's no program node yet
-			//parser.program()->accept(code_generator);
-			parser.declaration()->accept(code_generator);
+			parser.program()->accept(code_generator);
 		}
 	}
 	else
 	{
-		cout << "declaration:\n";
+		cout << "program:\n";
 
 		boofar::parser parser(&token_stream);
 
-		// FIXME: there's no program node yet
-		//cout << parser.program()->program() << '\n';
-		cout << parser.declaration() << '\n';
+		cout << parser.program() << '\n';
 	}
 
 	return 0;
