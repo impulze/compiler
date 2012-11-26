@@ -69,7 +69,7 @@ namespace boofar
 			{
 				R accept(T &visitor) override
 				{
-					visitor.visit(static_cast<C &>(*this));
+					visitor.visit(static_cast<C const &>(*this));
 				}
 			};
 
@@ -101,12 +101,12 @@ namespace boofar
 		{
 			R accept(visitors::prettyprinter &visitor) override
 			{
-				visitor.visit(static_cast<C &>(*this));
+				visitor.visit(static_cast<C const &>(*this));
 			}
 
 			R accept(visitors::code_generator &visitor) override
 			{
-				visitor.visit(static_cast<C &>(*this));
+				visitor.visit(static_cast<C const &>(*this));
 			}
 		};
 
