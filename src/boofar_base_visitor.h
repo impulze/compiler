@@ -16,6 +16,7 @@ namespace boofar
 		class hexadecimal_literal;
 		class octal_literal;
 		class parameter_list;
+		class unary_operation;
 	}
 
 	namespace visitors
@@ -62,7 +63,8 @@ namespace boofar
 			                       nodes::float_literal,
 			                       nodes::hexadecimal_literal,
 			                       nodes::octal_literal,
-			                       nodes::parameter_list
+			                       nodes::parameter_list,
+								   nodes::unary_operation
 			                      >
 		{
 		};
