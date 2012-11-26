@@ -17,7 +17,9 @@ namespace boofar
 		class generic : public acceptors::base<>
 		{
 		public:
+			static const char *type_to_string(types::type type);
 			types::type type() const;
+			const char *type_string() const;
 
 		protected:
 			generic(types::type type) :
@@ -26,6 +28,20 @@ namespace boofar
 
 		private:
 			const types::type _type;
+		};
+
+		class program : public acceptors::implementation<program>,
+			public generic
+		{
+		public:
+			program(const std::vector<generic *> &statements) :
+				generic(types::program), _statements(statements)
+			{}
+
+			const std::vector<generic *> &statements() const;
+
+		private:
+			const std::vector<generic *> _statements;
 		};
 
 		class assignment :

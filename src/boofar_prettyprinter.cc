@@ -60,6 +60,19 @@ namespace boofar
 			_output << "\" constructor=\"" << node.constructor() << "\"/>";
 		}
 
+		void prettyprinter::visit(const nodes::program &node)
+		{
+			_output << "<program>";
+			for (const nodes::generic *statement: node.statements())
+			{
+				_output << "<statement type=\"" << statement->type_string() <<
+					"\">";
+				visit(*statement);
+				_output << "</statement>";
+			}
+			_output << "</program>";
+		}
+
 		void prettyprinter::visit(const nodes::unary_operation &node)
 		{
 			_output << "<unary_operation symbol=\"" << node.symbol() <<

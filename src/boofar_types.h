@@ -22,6 +22,7 @@ namespace boofar
 			declaration,
 			parameter_list,
 			unary_operation,
+			program
 		};
 	}
 

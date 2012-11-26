@@ -6,6 +6,7 @@ namespace boofar
 	namespace nodes
 	{
 		class generic;
+		class program;
 		class assignment;
 		class binary_operation;
 		class identifier;
@@ -66,6 +67,7 @@ namespace boofar
 			                       nodes::hexadecimal_literal,
 			                       nodes::octal_literal,
 */			                       nodes::parameter_list,
+								   nodes::program,
 								   nodes::unary_operation
 			                      >
 		{

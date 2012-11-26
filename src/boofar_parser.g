@@ -23,9 +23,12 @@ options
 	using std::unique_ptr;
 }
 
-program returns [ nodes::generic *node ] :
-		stat=statement+
-		{ node = stat; }
+program returns [ nodes::generic *node ]
+	scope
+	{ std::vector<nodes::generic *> statements; } :
+	
+	( stat=statement { $program::statements.push_back(stat); } )+
+	{ node = new nodes::program($program::statements); }
 	;
 
 statement returns [ nodes::generic *node ] :

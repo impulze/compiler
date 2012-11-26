@@ -23,6 +23,7 @@ namespace boofar
 			void visit(const nodes::declaration &node) override;
 			void visit(const nodes::identifier &node) override;
 			void visit(const nodes::literal &node) override;
+			void visit(const nodes::program &node) override;
 			void visit(const nodes::unary_operation &node) override;
 
 		private:
