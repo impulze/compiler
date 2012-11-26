@@ -25,7 +25,7 @@ namespace boofar
 			template <class R, class T>
 			struct base_factory_single
 			{
-				virtual R visit(T &)
+				virtual R visit(T const &)
 				{
 				}
 			};

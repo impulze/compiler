@@ -20,8 +20,8 @@ namespace boofar
 
 			using base<>::visit;
 
-			void visit(nodes::declaration &node) override;
-			void visit(nodes::identifier &node) override;
+			void visit(nodes::declaration const &node) override;
+			void visit(nodes::identifier const &node) override;
 
 		private:
 			std::ostream &output_;

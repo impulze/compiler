@@ -13,7 +13,7 @@ namespace boofar
 		public:
 			using base<>::visit;
 
-			void visit(nodes::declaration &node) override;
+			void visit(nodes::declaration const &node) override;
 		};
 	}
 }
