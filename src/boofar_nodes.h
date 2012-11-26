@@ -12,10 +12,8 @@ namespace boofar
 {
 	namespace nodes
 	{
-		// forwardings
-		class identifier;
+		class identifier; 
 
-		// declarations
 		class generic : public acceptors::base<>
 		{
 		public:
@@ -161,6 +159,25 @@ namespace boofar
 
 		private:
 			const std::vector<declaration *> _parameters;
+		};
+
+		class unary_operation :
+			public acceptors::implementation<unary_operation>, public generic
+		{
+		public:
+			unary_operation(const std::string &symbol,
+				const generic *expression):
+
+				generic(types::unary_operation), _expression(expression),
+				_symbol(symbol)
+			{}
+
+			const generic *expression() const;
+			const std::string &symbol() const;
+
+		private:
+			const generic *_expression;
+			const std::string _symbol;
 		};
 	};
 };

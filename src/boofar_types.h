@@ -21,6 +21,7 @@ namespace boofar
 			binary_operation,
 			declaration,
 			parameter_list,
+			unary_operation,
 		};
 	}
 

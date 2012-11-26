@@ -23,11 +23,15 @@ options
 	using std::unique_ptr;
 }
 
-program : statement+ ;
+program returns [ nodes::generic *node ] :
+		statement+
+		{ node = statement(); }
+	;
 
-statement :
-		( declaration | expression ) SEMICOLON
-	|	function_definition
+statement returns [ nodes::generic *node ] :
+		( content=declaration | content=expression ) SEMICOLON
+		{ node = content; }
+//	|	function_definition
 	;
 
 expression returns [ nodes::generic *node ] :
@@ -42,7 +46,8 @@ atomic_expression returns [ nodes::generic *node ] :
 	;
 
 declaration returns [ nodes::declaration *node ] :
-		type=identifier name=identifier { node = new nodes::declaration(type, name); }
+		type=identifier name=identifier
+		{ node = new nodes::declaration(type, name); }
 	;
 /*
 declaration returns [ boofar::nodes::declaration *node ] :
@@ -53,19 +58,33 @@ declaration returns [ boofar::nodes::declaration *node ] :
 		} ;
 */
 
-parameter_list : ( declaration ( COMMA declaration )* )? ;
+// parameter_list : ( declaration ( COMMA declaration )* )? ;
 
-function_definition : FUNCTION IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACE statement+ RIGHT_BRACE ;
+// function_definition : FUNCTION IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACE statement+ RIGHT_BRACE ;
 
 assignment returns [ nodes::assignment *node ] :
-		identifier EQUALS expression
-		{ node = new nodes::assignment(identifier(), expression()); }
+		i1=identifier EQUALS i2=identifier
+		{ node = new nodes::assignment(i1, i2); }
+		// identifier EQUALS expression
+		// { node = new nodes::assignment(identifier(), expression()); }
 	;
 
-unary_operation : atomic_expression | UNARY_OPERATOR expression ;
+unary_operation returns [ nodes::generic *node ] :
+		atomic_expression
+		{ node = atomic_expression(); }
+	|	UNARY_OPERATOR expression
+		{
+			node = new nodes::unary_operation($UNARY_OPERATOR.text,
+				expression());
+		}
+	;
 
 binary_operation returns [ nodes::binary_operation *node ] :
 		unary_operation BINARY_OPERATOR expression 
+		{
+			node = new nodes::binary_operation($BINARY_OPERATOR.text,
+				unary_operation(), expression());
+		}
 	;
 
 literal returns [ nodes::literal *node ]

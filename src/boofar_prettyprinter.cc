@@ -9,18 +9,18 @@ namespace boofar
 		void prettyprinter::visit(const nodes::assignment &node)
 		{
 			_output << "<assignment><variable>";
-			visit(node.variable());
+			visit(*node.variable());
 			_output << "</variable><expression>";
-			//visit(node.expression()); TODO implement
+			//visit(*node.expression()); TODO implement
 			_output << "</expression></assignment>";
 		}
 
 		void prettyprinter::visit(const nodes::declaration &node)
 		{
 			_output << "<declaration><type>";
-			visit(node.type());
+			visit(*node.type());
 			_output << "</type><variable>";
-			visit(node.name());
+			visit(*node.name());
 			_output << "</variable></declaration>";
 		}
 

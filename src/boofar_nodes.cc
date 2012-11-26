@@ -23,7 +23,7 @@ namespace boofar
 		const identifier *assignment::variable() const
 		{ return _variable; }
 
-		// binary operation
+		// binary_operation
 		const generic *binary_operation::left() const
 		{ return _left; }
 
@@ -55,5 +55,12 @@ namespace boofar
 		// parameter_list
 		const std::vector<declaration *> &parameter_list::parameters() const
 		{ return _parameters; }
+
+		// unary_operation
+		const generic *unary_operation::expression() const
+		{ return _expression; }
+
+		const std::string &unary_operation::symbol() const
+		{ return _symbol; }
 	};
 };
