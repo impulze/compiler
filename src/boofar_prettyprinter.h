@@ -9,22 +9,21 @@ namespace boofar
 {
 	namespace visitors
 	{
-		class prettyprinter
-			: public base<>
+		class prettyprinter : public base<>
 		{
 		public:
-			prettyprinter(std::ostream &output)
-				: output_(output)
-			{
-			}
+			prettyprinter(std::ostream &output) :
+				_output(output)
+			{}
 
 			using base<>::visit;
 
-			void visit(nodes::declaration &node) override;
-			void visit(nodes::identifier &node) override;
+			void visit(const nodes::assignment &node) override;
+			void visit(const nodes::declaration &node) override;
+			void visit(const nodes::identifier &node) override;
 
 		private:
-			std::ostream &output_;
+			std::ostream &_output;
 		};
 	}
 }
