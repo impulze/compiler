@@ -8,12 +8,10 @@ namespace boofar
 	{
 		void prettyprinter::visit(nodes::declaration &node)
 		{
-			output_ << "visited declaration node: " << node << '\n';
 		}
 
 		void prettyprinter::visit(nodes::identifier &node)
 		{
-			output_ << "visited identifier node: " << node << '\n';
 		}
 	}
 }

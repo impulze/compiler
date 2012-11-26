@@ -16,171 +16,153 @@ namespace boofar
 		class identifier;
 
 		// declarations
-		class generic
-			: public acceptors::base<>
+		class generic : public acceptors::base<>
 		{
 		public:
-			types::type get_type() const;
-			std::string to_xml() const;
-			std::ostream &to_xml(std::ostream &buffer) const;
+			types::type type() const;
 
 		protected:
-			generic(types::type type):
-				type(type)
+			generic(types::type type) :
+				_type(type)
 			{}
-
-			virtual void append_inner_xml(std::ostream &buffer) const = 0;
 
 		private:
-			static std::unordered_map<int, std::string> tag_names;
-			const types::type type;
+			const types::type _type;
 		};
 
-		class assignment
-			: public acceptors::implementation<assignment>,
-			  public generic
+		class assignment :
+			public acceptors::implementation<assignment>, public generic
 		{
 		public:
-			assignment(const identifier *variable,
-			           const generic *expression)
-				: generic(types::assignment), expression(expression),
-				  variable(variable)
+			assignment(const identifier *variable, const generic *expression) :
+				generic(types::assignment), _expression(expression),
+				_variable(variable)
 			{}
+
+			const generic *expression() const;
+			const identifier *variable() const;
+
+		private:
+			const generic *_expression;
+			const identifier *_variable;
+		};
+
+		class binary_operation :
+			public acceptors::implementation<binary_operation>, public generic
+		{
+		public:
+			binary_operation(const std::string &symbol, const generic *left,
+				const generic *right) :
+				
+				generic(types::binary_operation), _left(left), _right(right),
+				_symbol(symbol)
+			{}
+
+			const generic *left() const;
+			const generic *right() const;
+			const std::string &symbol() const;
+
+		private:
+			const generic *_left;
+			const generic *_right;
+			const std::string _symbol;
+		};
+
+		class identifier :
+			public acceptors::implementation<identifier>, public generic
+		{
+		public:
+			identifier(const std::string &name) :
+				generic(types::identifier), _name(name)
+			{}
+
+			const std::string &name() const;
+
+		private:
+			const std::string _name;
+		};
+
+		class declaration :
+			public acceptors::implementation<declaration>, public generic
+		{
+		public:
+			declaration(const identifier *type, const identifier *name) :
+				generic(types::declaration), _name(name), _type(type)
+			{}
+
+			const identifier *name() const;
+			const identifier *type() const;
+
+		private:
+			const identifier *_name;
+			const identifier *_type;
+		};
+
+		class literal : public generic
+		{
+		public:
+			const std::string &constructor() const;
 
 		protected:
-			void append_inner_xml(std::ostream &buffer) const override;
+			literal(types::type type, const std::string &constructor) :
+				generic(type), _constructor(constructor)
+			{}
 
 		private:
-			const generic *expression;
-			const identifier *variable;
+			const std::string _constructor;
 		};
 
-		class binary_operation
-			: public acceptors::implementation<binary_operation>,
-			  public generic
+		class decimal_literal :
+			public acceptors::implementation<decimal_literal>, public literal
 		{
 		public:
-			binary_operation(const std::string &symbol,
-			                 const generic *left, const generic *right)
-				: generic(types::binary_operation), left(left), right(right),
-				  symbol(symbol)
+			decimal_literal(const std::string &constructor) :
+				literal(types::dec_literal, constructor)
+			{}
+		};
+
+		class float_literal :
+			public acceptors::implementation<float_literal>, public literal
+		{
+		public:
+			float_literal(const std::string &constructor) :
+				literal(types::float_literal, constructor)
+			{}
+		};
+
+		class hexadecimal_literal :
+			public acceptors::implementation<hexadecimal_literal>,
+			public literal
+		{
+		public:
+			hexadecimal_literal(const std::string &constructor) :
+				literal(types::hex_literal, constructor)
+			{}
+		};
+
+		class octal_literal :
+			public acceptors::implementation<octal_literal>, public literal
+		{
+		public:
+			octal_literal(const std::string &constructor) :
+				literal(types::oct_literal, constructor)
+			{}
+		};
+
+		class parameter_list :
+			public acceptors::implementation<parameter_list>, public generic
+		{
+		public:
+			parameter_list(const std::vector<declaration *> &parameters) :
+				generic(types::parameter_list), _parameters(parameters)
 			{}
 
-		protected:
-			void append_inner_xml(std::ostream &buffer) const override;
+			const std::vector<declaration *> &parameters() const;
 
 		private:
-			const generic *left;
-			const generic *right;
-			const std::string symbol;
-		};
-
-		class identifier
-			: public acceptors::implementation<identifier>,
-			  public generic
-		{
-		public:
-			identifier(const std::string &name)
-				: generic(types::identifier), name(name)
-			{}
-
-		protected:
-			void append_inner_xml(std::ostream &buffer) const override;
-
-		private:
-			const std::string name;
-		};
-
-		class declaration
-			: public acceptors::implementation<declaration>,
-			  public generic
-		{
-		public:
-			declaration(const identifier *type, const identifier *name)
-				: generic(types::declaration), name(name), type(type)
-			{}
-
-		protected:
-			void append_inner_xml(std::ostream &buffer) const override;
-
-		private:
-			const identifier *name;
-			const identifier *type;
-		};
-
-		class literal
-			: public generic
-		{
-		protected:
-			literal(types::type type, const std::string &constructor)
-				: generic(type), constructor(constructor)
-			{}
-
-			void append_inner_xml(std::ostream &buffer) const override;
-
-		private:
-			const std::string constructor;
-		};
-
-		class decimal_literal
-			: public acceptors::implementation<decimal_literal>,
-			  public literal
-		{
-		public:
-			decimal_literal(const std::string &constructor)
-				: literal(types::dec_literal, constructor)
-			{}
-		};
-
-		class float_literal
-			: public acceptors::implementation<float_literal>,
-			  public literal
-		{
-		public:
-			float_literal(const std::string &constructor)
-				: literal(types::float_literal, constructor)
-			{}
-		};
-
-		class hexadecimal_literal
-			: public acceptors::implementation<hexadecimal_literal>,
-			  public literal
-		{
-		public:
-			hexadecimal_literal(const std::string &constructor)
-				: literal(types::hex_literal, constructor)
-			{}
-		};
-
-		class octal_literal
-			: public acceptors::implementation<octal_literal>,
-			  public literal
-		{
-		public:
-			octal_literal(const std::string &constructor)
-				: literal(types::oct_literal, constructor)
-			{}
-		};
-
-		class parameter_list
-			: public acceptors::implementation<parameter_list>,
-			  public generic
-		{
-		public:
-			parameter_list(const std::vector<declaration *> &&parameters)
-				: generic(types::parameter_list), parameters(parameters)
-			{}
-
-		protected:
-			void append_inner_xml(std::ostream &buffer) const override;
-
-		private:
-			const std::vector<declaration *> parameters;
+			const std::vector<declaration *> _parameters;
 		};
 	};
 };
-
-std::ostream &operator<<(std::ostream &stream,
-                         const boofar::nodes::generic &node);
 
 #endif

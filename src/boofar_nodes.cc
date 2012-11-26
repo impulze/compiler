@@ -7,70 +7,53 @@ namespace boofar
 	{
 		// define type names
 		// auto generic::type_names TODO report clang bug
-		decltype(generic::tag_names) generic::tag_names
+		/*decltype(generic::tag_names) generic::tag_names
 		{
 			{ types::assignment, "assignment" },
 			{ types::binary_operation, "binaryOperation" },
 			{ types::dec_literal, "decimalLiteral" },
 			{ types::float_literal, "floatLiteral" },
 			{ types::identifier, "identifier" },
-		};
+		};*/
 
 		// assignment
-		void assignment::append_inner_xml(std::ostream &buffer) const
-		{
-			buffer << "<left>" << *variable << "</left><right>" <<
-				*expression << "</right>";
-		}
+		const generic *assignment::expression() const
+		{ return _expression; }
+		
+		const identifier *assignment::variable() const
+		{ return _variable; }
 
 		// binary operation
-		void binary_operation::append_inner_xml(std::ostream &buffer) const
-		{
-			buffer << "<left>" << *left << "</left><operator>" << symbol <<
-				"</operator><right>" << *right << "</right>";
-		}
+		const generic *binary_operation::left() const
+		{ return _left; }
+
+		const generic *binary_operation::right() const
+		{ return _right; }
+
+		const std::string &binary_operation::symbol() const
+		{ return _symbol; }
 
 		// declaration
-		void declaration::append_inner_xml(std::ostream &buffer) const
-		{
-			buffer << "<type>" << *type << "</type><name>" << *name <<
-				"</name>";
-		}
+		const identifier *declaration::name() const
+		{ return _name; }
+
+		const identifier *declaration::type() const
+		{ return _type; }
 
 		// generic
-		std::string generic::to_xml() const
-		{
-			std::ostringstream buffer;
-			to_xml(buffer);
-			return buffer.str();
-		}
-
-		std::ostream &generic::to_xml(std::ostream &buffer) const
-		{
-			buffer << '<' << tag_names[type] << '>';
-			append_inner_xml(buffer);
-			buffer << "</" << tag_names[type] << '>';
-			return buffer;
-		}
+		types::type generic::type() const
+		{ return _type; }
 
 		// identifier
-		void identifier::append_inner_xml(std::ostream &buffer) const
-		{ buffer << name; }
+		const std::string &identifier::name() const
+		{ return _name; }
 
 		// literal
-		void literal::append_inner_xml(std::ostream &buffer) const
-		{ buffer << constructor; }
+		const std::string &literal::constructor() const
+		{ return _constructor; }
 
 		// parameter_list
-		void parameter_list::append_inner_xml(std::ostream &buffer) const
-		{
-			for (declaration *parameter: parameters)
-			{ buffer << *parameter; }
-		}
+		const std::vector<declaration *> &parameter_list::parameters() const
+		{ return _parameters; }
 	};
 };
-
-// ostream extension
-std::ostream &operator<<(std::ostream &stream,
-	const boofar::nodes::generic &node)
-{ return node.to_xml(stream); }
