@@ -61,7 +61,7 @@ namespace boofar
 			p << "</variable>\n";
 			p << "<expression>\n";
 			++p;
-			//visit(*node.expression()); TODO implement
+			node.expression()->accept(*this);
 			--p;
 			p << "</expression>\n";
 			--p;
