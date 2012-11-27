@@ -7,14 +7,6 @@
 
 namespace boofar
 {
-#if 0
-	namespace visitors
-	{
-		class prettyprinter;
-		class code_generator;
-	}
-#endif
-
 	namespace acceptors
 	{
 		namespace detail
@@ -72,27 +64,6 @@ namespace boofar
 					visitor.visit(static_cast<C const &>(*this));
 				}
 			};
-
-#if 0
-			template <class C, class R = void, class... T>
-			struct implementation_factory;
-
-			template <class C, class R, class T, class... Args>
-			struct implementation_factory<C, R, T, Args...>
-				: implementation_factory<C, R, Args...>,
-				  virtual base_factory_single<R, T>
-			{
-				using implementation_factory<C, R, Args...>::accept;
-				R accept(T &visitor) override { }
-			};
-
-			template <class C, class R, class T>
-			struct implementation_factory<C, R, T>
-				: virtual base_factory_single<R, T>
-			{
-				R accept(T &visitor) override { }
-			};
-#endif
 		}
 
 		template <class C, class R = void>

@@ -60,15 +60,17 @@ namespace boofar
 			                       nodes::identifier,
 			                       nodes::binary_operation,
 			                       nodes::declaration,
-								   nodes::generic,
-								   nodes::literal,
-/*			                       nodes::decimal_literal,
+			                       nodes::generic,
+			                       nodes::literal,
+#if 0
+			                       nodes::decimal_literal,
 			                       nodes::float_literal,
 			                       nodes::hexadecimal_literal,
 			                       nodes::octal_literal,
-*/			                       nodes::parameter_list,
-								   nodes::program,
-								   nodes::unary_operation
+#endif
+			                       nodes::parameter_list,
+			                       nodes::program,
+			                       nodes::unary_operation
 			                      >
 		{
 		};
