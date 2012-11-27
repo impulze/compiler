@@ -53,19 +53,6 @@ namespace boofar
 		{
 		};
 
-		namespace detail
-		{
-			template <class C, class R, class T>
-			struct implementation_factory_single
-				: virtual base<R>
-			{
-				R accept(T &visitor) override
-				{
-					visitor.visit(static_cast<C const &>(*this));
-				}
-			};
-		}
-
 		template <class C, class R = void>
 		struct implementation
 			: virtual detail::all_base_factory<R>
