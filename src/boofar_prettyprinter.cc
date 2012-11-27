@@ -2,75 +2,162 @@
 #include "boofar_prettyprinter.h"
 #include "boofar_code_generator.h"
 
+namespace
+{
+	struct indent_printer
+	{
+		explicit indent_printer(std::ostream &strm, int &indent)
+			: strm_(strm),
+			  indent_(indent),
+			  once_(false),
+			  no_indent_(false)
+		{
+		}
+
+		indent_printer &once()
+		{
+			once_ = true;
+			return *this;
+		}
+
+		template <class T>
+		indent_printer &operator<<(T const &);
+
+		indent_printer &operator++()
+		{
+			indent_++;
+			once_ = no_indent_ = false;
+			return *this;
+		}
+
+		indent_printer &operator--()
+		{
+			indent_--;
+			once_ = no_indent_ = false;
+			return *this;
+		}
+
+		std::ostream &strm_;
+		int &indent_;
+		bool once_;
+		bool no_indent_;
+	};
+}
+
 namespace boofar
 {
 	namespace visitors
 	{
 		void prettyprinter::visit(const nodes::assignment &node)
 		{
-			_output << "<assignment><variable>";
+			auto p = indent_printer(_output, _indent);
+
+			p << "<assignment>\n";
+			++p;
+			p << "<variable>\n";
+			++p;
 			node.variable()->accept(*this);
-			_output << "</variable><expression>";
+			--p;
+			p << "</variable>\n";
+			p << "<expression>\n";
+			++p;
 			//visit(*node.expression()); TODO implement
-			_output << "</expression></assignment>";
+			--p;
+			p << "</expression>\n";
+			--p;
+			p << "</assignment>\n";
 		}
 
 		void prettyprinter::visit(const nodes::binary_operation &node)
 		{
-			_output << "<binary_operation symbol=\"" << node.symbol() <<
-				"\"><left>";
+			auto p = indent_printer(_output, _indent);
+
+			p.once() << "<binary_operation symbol=\"" << node.symbol() << "\">\n";
+			++p;
+			p << "<left>\n";
 			node.left()->accept(*this);
-			_output << "</left><right>";
+			--p;
+			p << "</left>\n";
+			p << "<right>\n";
+			++p;
 			node.right()->accept(*this);
-			_output << "</right></binary_operation>";
+			--p;
+			p << "</right>\n";
+			p << "</binary_operation>\n";
 		}
 
 		void prettyprinter::visit(const nodes::declaration &node)
 		{
-			_output << "<declaration><type>";
+			auto p = indent_printer(_output, _indent);
+
+			p << "<declaration>\n";
+			++p;
+			p << "<type>\n";
+			++p;
 			node.type()->accept(*this);
-			_output << "</type><variable>";
+			--p;
+			p << "</type>\n";
+			p << "<variable>\n";
+			++p;
 			node.name()->accept(*this);
-			_output << "</variable></declaration>";
+			--p;
+			p << "</variable>\n";
+			--p;
+			p << "</declaration>\n";
 		}
 
 		void prettyprinter::visit(const nodes::identifier &node)
-		{ _output << "<identifier name=\"" << node.name() << "\"/>"; }
+		{
+			auto p = indent_printer(_output, _indent);
+
+			p.once() << "<identifier name=\"" << node.name() << "\"/>\n";
+		}
 
 		void prettyprinter::visit(const nodes::literal &node)
 		{
-			_output << "<literal type=\"";
+			auto p = indent_printer(_output, _indent);
+
+			p.once() << "<literal type=\"";
+
 			switch (node.type())
 			{
 				case type::dec_literal:
-					_output << "decimal";
+					p << "decimal";
 					break;
 				case type::float_literal:
-					_output << "float";
+					p << "float";
 					break;
 				case type::hex_literal:
-					_output << "hexadecimal";
+					p << "hexadecimal";
 					break;
 				case type::oct_literal:
-					_output << "octal";
+					p << "octal";
 					break;
 				default:
-					_output << "unknown";
+					p << "unknown";
 			}
-			_output << "\" constructor=\"" << node.constructor() << "\"/>";
+
+			p << "\" constructor=\"" << node.constructor() << "\"/>\n";
 		}
 
 		void prettyprinter::visit(const nodes::program &node)
 		{
-			_output << "<program>";
+			auto p = indent_printer(_output, _indent);
+
+			p << "<program>\n";
+			++p;
+
 			for (const nodes::generic *statement: node.statements())
 			{
-				_output << "<statement type=\"" << statement->type_string() <<
-					"\">";
+				p.once() << "<statement type=\"" << statement->type_string() << "\">\n";
+				++p;
 				statement->accept(*this);
-				_output << "</statement>";
+				--p;
+				p << "</statement>\n";
 			}
-			_output << "</program>";
+
+			--p;
+			p << "</program>\n";
 		}
 
 		void prettyprinter::visit(const nodes::unary_operation &node)
@@ -80,5 +167,30 @@ namespace boofar
 			node.accept(*this);
 			_output << "</operand></unary_operation>";
 		}
+	}
+}
+
+namespace
+{
+	template <class T>
+	indent_printer &indent_printer::operator<<(T const &t)
+	{
+		if (!no_indent_)
+		{
+			for (int i = 0; i < indent_; i++)
+			{
+				strm_ << "  ";
+			}
+		}
+
+		if (once_)
+		{
+			no_indent_ = true;
+			once_ = false;
+		}
+
+		strm_ << t;
+
+		return *this;
 	}
 }

@@ -13,7 +13,7 @@ namespace boofar
 		{
 		public:
 			prettyprinter(std::ostream &output) :
-				_output(output)
+				_output(output), _indent(0)
 			{}
 
 			using base<>::visit;
@@ -28,6 +28,7 @@ namespace boofar
 
 		private:
 			std::ostream &_output;
+			int _indent;
 		};
 	}
 }
