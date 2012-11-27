@@ -164,10 +164,17 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::unary_operation &node)
 		{
-			_output << "<unary_operation symbol=\"" << node.symbol() <<
-				"\"><operand>";
-			node.accept(*this);
-			_output << "</operand></unary_operation>";
+			auto p = indent_printer(_output, _indent);
+
+			p.once() << "<unary_operation symbol=\"" << node.symbol() << "\">\n";
+			++p;
+			p << "<operand>\n";
+			++p;
+			node.expression()->accept(*this);
+			--p;
+			p << "</operand>\n";
+			--p;
+			p << "</unary_operation>\n";
 		}
 	}
 }
