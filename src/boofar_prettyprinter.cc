@@ -9,7 +9,7 @@ namespace boofar
 		void prettyprinter::visit(const nodes::assignment &node)
 		{
 			_output << "<assignment><variable>";
-			visit(*node.variable());
+			node.variable()->accept(*this);
 			_output << "</variable><expression>";
 			//visit(*node.expression()); TODO implement
 			_output << "</expression></assignment>";
@@ -19,18 +19,18 @@ namespace boofar
 		{
 			_output << "<binary_operation symbol=\"" << node.symbol() <<
 				"\"><left>";
-			visit(*node.left());
+			node.left()->accept(*this);
 			_output << "</left><right>";
-			visit(*node.right());
+			node.right()->accept(*this);
 			_output << "</right></binary_operation>";
 		}
 
 		void prettyprinter::visit(const nodes::declaration &node)
 		{
 			_output << "<declaration><type>";
-			visit(*node.type());
+			node.type()->accept(*this);
 			_output << "</type><variable>";
-			visit(*node.name());
+			node.name()->accept(*this);
 			_output << "</variable></declaration>";
 		}
 
@@ -67,7 +67,7 @@ namespace boofar
 			{
 				_output << "<statement type=\"" << statement->type_string() <<
 					"\">";
-				visit(*statement);
+				statement->accept(*this);
 				_output << "</statement>";
 			}
 			_output << "</program>";
@@ -77,7 +77,7 @@ namespace boofar
 		{
 			_output << "<unary_operation symbol=\"" << node.symbol() <<
 				"\"><operand>";
-			visit(*node.expression());
+			node.accept(*this);
 			_output << "</operand></unary_operation>";
 		}
 	}
