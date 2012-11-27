@@ -75,6 +75,7 @@ namespace boofar
 			p.once() << "<binary_operation symbol=\"" << node.symbol() << "\">\n";
 			++p;
 			p << "<left>\n";
+			++p;
 			node.left()->accept(*this);
 			--p;
 			p << "</left>\n";
@@ -83,6 +84,7 @@ namespace boofar
 			node.right()->accept(*this);
 			--p;
 			p << "</right>\n";
+			--p;
 			p << "</binary_operation>\n";
 		}
 
