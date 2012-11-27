@@ -41,17 +41,19 @@ depend: $(DEPS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -MM -MT $@ $< > deps/$@
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o $@ -c $<
 
-boofar_%.o: WARNFLAGS = -w
+boofar_parser.o boofar_lexer.o: WARNFLAGS = -w
+
+boofar_lexer_debug.cc: boofar_lexer.h
+boofar_parser_debug.cc: boofar_parser.h
+compiler.cc: boofar_lexer.h boofar_parser.h
+
+boofar_lexer.h: boofar_lexer.hpp
+boofar_lexer.tokens boofar_lexer.hpp boofar_lexer.cpp: boofar_lexer.g
+	$(ANTLR) $<
 
 boofar_parser.g: boofar_lexer.tokens
-compiler.o \
-boofar.o \
-boofar_nodes.o \
-boofar_lexer_debug.o \
-tests/tokens.o: boofar_lexer.h boofar_parser.h
-boofar_lexer_debug.o: boofar_lexer.h
-boofar_parser_debug.o: boofar_parser.h
-boofar_%.tokens boofar_%.h boofar_%.cpp: boofar_%.g
+boofar_parser.h: boofar_parser.hpp
+boofar_parser.tokens boofar_parser.hpp boofar_parser.cpp: boofar_parser.g
 	$(ANTLR) $<
 
 clean:
