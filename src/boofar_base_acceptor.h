@@ -14,7 +14,7 @@ namespace boofar
 			template <class R, class T>
 			struct base_factory_single
 			{
-				virtual R accept(T &) = 0;
+				virtual R accept(T &) const = 0;
 			};
 
 			template <class R = void, class... T>
@@ -57,12 +57,12 @@ namespace boofar
 		struct implementation
 			: virtual detail::all_base_factory<R>
 		{
-			R accept(visitors::prettyprinter &visitor) override
+			R accept(visitors::prettyprinter &visitor) const override
 			{
 				visitor.visit(static_cast<C const &>(*this));
 			}
 
-			R accept(visitors::code_generator &visitor) override
+			R accept(visitors::code_generator &visitor) const override
 			{
 				visitor.visit(static_cast<C const &>(*this));
 			}
