@@ -52,7 +52,7 @@ namespace boofar
 		{
 			auto p = indent_printer(_output, _indent);
 
-			p << "<assignment>\n";
+			p.once() << "<assignment>\n";
 			++p;
 			p << "<variable>\n";
 			++p;
@@ -88,11 +88,56 @@ namespace boofar
 			p << "</binary_operation>\n";
 		}
 
+		void prettyprinter::visit(const nodes::block &node)
+		{
+			auto p = indent_printer(_output, _indent);
+
+			p.once() << "<block>\n";
+			++p;
+
+			for (const nodes::generic *statement: node.statements())
+			{
+				p.once() << "<statement type=\"" << statement->type_string() << "\">\n";
+				++p;
+				statement->accept(*this);
+				--p;
+				p << "</statement>\n";
+			}
+
+			--p;
+			p << "</block>\n";
+		}
+
+		void prettyprinter::visit(const nodes::condition &node)
+		{
+			auto p = indent_printer(_output, _indent);
+
+			p.once() << "<condition>\n";
+			++p;
+			p << "<expression>\n";
+			++p;
+			node.expression()->accept(*this);
+			--p;
+			p << "</expression>\n";
+			p << "<trueBlock>\n";
+			++p;
+			node.true_block()->accept(*this);
+			--p;
+			p << "</trueBlock>\n";
+			p << "<falseBlock>\n";
+			++p;
+			node.false_block()->accept(*this);
+			--p;
+			p << "</falseBlock>\n";
+			--p;
+			p << "</condition>\n";
+		}
+
 		void prettyprinter::visit(const nodes::declaration &node)
 		{
 			auto p = indent_printer(_output, _indent);
 
-			p << "<declaration>\n";
+			p.once() << "<declaration>\n";
 			++p;
 			p << "<type>\n";
 			++p;
@@ -142,24 +187,10 @@ namespace boofar
 			p << "\" constructor=\"" << node.constructor() << "\"/>\n";
 		}
 
-		void prettyprinter::visit(const nodes::program &node)
+		void prettyprinter::visit(const nodes::null &node)
 		{
 			auto p = indent_printer(_output, _indent);
-
-			p << "<program>\n";
-			++p;
-
-			for (const nodes::generic *statement: node.statements())
-			{
-				p.once() << "<statement type=\"" << statement->type_string() << "\">\n";
-				++p;
-				statement->accept(*this);
-				--p;
-				p << "</statement>\n";
-			}
-
-			--p;
-			p << "</program>\n";
+			p.once() << "<null/>";
 		}
 
 		void prettyprinter::visit(const nodes::unary_operation &node)

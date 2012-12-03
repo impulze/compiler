@@ -27,15 +27,28 @@ namespace boofar
 			{}
 
 		private:
+			generic(generic &object);
+
 			const types::type _type;
 		};
 
-		class program : public acceptors::implementation<program>,
+		class null : public generic, public acceptors::implementation<null>
+		{
+		public:
+			static const null &instance();
+
+		private:
+			null() :
+				generic(types::null)
+			{}
+		};
+
+		class block : public acceptors::implementation<block>,
 			public generic
 		{
 		public:
-			program(const std::vector<generic *> &statements) :
-				generic(types::program), _statements(statements)
+			block(const std::vector<generic *> &statements) :
+				generic(types::block), _statements(statements)
 			{}
 
 			const std::vector<generic *> &statements() const;
@@ -80,6 +93,27 @@ namespace boofar
 			const generic *_left;
 			const generic *_right;
 			const std::string _symbol;
+		};
+
+		class condition : public acceptors::implementation<condition>,
+			public generic
+		{
+		public:
+			condition(const generic *expression, const block *true_block,
+				const generic *false_block) :
+
+				generic(types::condition), _expression(expression),
+				_false_block(false_block), _true_block(true_block)
+			{}
+
+			const generic *expression() const;
+			const generic *false_block() const;
+			const block *true_block() const;
+
+		private:
+			const generic *_expression;
+			const generic *_false_block;
+			const block *_true_block;
 		};
 
 		class identifier :

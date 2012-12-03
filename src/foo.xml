@@ -1,2 +1,132 @@
 pretty printing:
-<program><statement type="declaration"></statement><statement type="declaration"></statement><statement type="declaration"></statement><statement type="assignment"></statement></program>
+<program>
+  <statement type="declaration">
+    <declaration>
+      <type>
+        <identifier name="int"/>
+      </type>
+      <variable>
+        <identifier name="a"/>
+      </variable>
+    </declaration>
+  </statement>
+  <statement type="declaration">
+    <declaration>
+      <type>
+        <identifier name="int"/>
+      </type>
+      <variable>
+        <identifier name="b"/>
+      </variable>
+    </declaration>
+  </statement>
+  <statement type="declaration">
+    <declaration>
+      <type>
+        <identifier name="int"/>
+      </type>
+      <variable>
+        <identifier name="c"/>
+      </variable>
+    </declaration>
+  </statement>
+  <statement type="assignment">
+    <assignment>
+      <variable>
+        <identifier name="c"/>
+      </variable>
+      <expression>
+        <binary_operation symbol="+">
+          <left>
+            <identifier name="a"/>
+          </left>
+          <right>
+            <binary_operation symbol="*">
+              <left>
+                <unary_operation symbol="-">
+                  <operand>
+                    <identifier name="b"/>
+                  </operand>
+                </unary_operation>
+              </left>
+              <right>
+                <binary_operation symbol="/">
+                  <left>
+                    <literal type="decimal" constructor="42"/>
+                  </left>
+                  <right>
+                    <binary_operation symbol="-">
+                      <left>
+                        <binary_operation symbol="-">
+                          <left>
+                            <literal type="decimal" constructor="12"/>
+                          </left>
+                          <right>
+                            <identifier name="a"/>
+                          </right>
+                        </binary_operation>
+                      </left>
+                      <right>
+                        <binary_operation symbol="/">
+                          <left>
+                            <assignment>
+                              <variable>
+                                <identifier name="b"/>
+                              </variable>
+                              <expression>
+                                <literal type="float" constructor="13.37e3"/>
+                              </expression>
+                            </assignment>
+                          </left>
+                          <right>
+                            <binary_operation symbol="^">
+                              <left>
+                                <literal type="decimal" constructor="2"/>
+                              </left>
+                              <right>
+                                <binary_operation symbol="+">
+                                  <left>
+                                    <literal type="decimal" constructor="4"/>
+                                  </left>
+                                  <right>
+                                    <binary_operation symbol="-">
+                                      <left>
+                                        <binary_operation symbol="*">
+                                          <left>
+                                            <unary_operation symbol="-">
+                                              <operand>
+                                                <identifier name="lol"/>
+                                              </operand>
+                                            </unary_operation>
+                                          </left>
+                                          <right>
+                                            <literal type="decimal" constructor="2"/>
+                                          </right>
+                                        </binary_operation>
+                                      </left>
+                                      <right>
+                                        <unary_operation symbol="-">
+                                          <operand>
+                                            <literal type="decimal" constructor="25"/>
+                                          </operand>
+                                        </unary_operation>
+                                      </right>
+                                    </binary_operation>
+                                  </right>
+                                </binary_operation>
+                              </right>
+                            </binary_operation>
+                          </right>
+                        </binary_operation>
+                      </right>
+                    </binary_operation>
+                  </right>
+                </binary_operation>
+              </right>
+            </binary_operation>
+          </right>
+        </binary_operation>
+      </expression>
+    </assignment>
+  </statement>
+</program>

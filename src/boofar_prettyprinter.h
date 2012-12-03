@@ -20,10 +20,12 @@ namespace boofar
 
 			void visit(const nodes::assignment &node) override;
 			void visit(const nodes::binary_operation &node) override;
+			void visit(const nodes::block &node) override;
+			void visit(const nodes::condition &node) override;
 			void visit(const nodes::declaration &node) override;
 			void visit(const nodes::identifier &node) override;
 			void visit(const nodes::literal &node) override;
-			void visit(const nodes::program &node) override;
+			void visit(const nodes::null &node) override;
 			void visit(const nodes::unary_operation &node) override;
 
 		private:

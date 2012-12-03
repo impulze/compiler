@@ -36,6 +36,8 @@ COMMENT :
 	|	'/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 	;
 DEC_LITERAL : DEC_DIGIT+;
+ELSE : 'else' ;
+IF : 'if' ;
 EQUALS : '=' ;
 FLOAT_LITERAL : DEC_LITERAL '.' DEC_DIGIT* EXPONENT? ;
 HEX_LITERAL : '0' ('x'|'X') HEX_DIGIT+;

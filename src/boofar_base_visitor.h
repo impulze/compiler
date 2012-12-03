@@ -6,7 +6,7 @@ namespace boofar
 	namespace nodes
 	{
 		class generic;
-		class program;
+		class block;
 		class assignment;
 		class binary_operation;
 		class identifier;
@@ -18,6 +18,8 @@ namespace boofar
 		class octal_literal;
 		class parameter_list;
 		class unary_operation;
+		class condition;
+		class null;
 	}
 
 	namespace visitors
@@ -69,8 +71,10 @@ namespace boofar
 			                       nodes::octal_literal,
 #endif
 			                       nodes::parameter_list,
-			                       nodes::program,
-			                       nodes::unary_operation
+			                       nodes::block,
+			                       nodes::unary_operation,
+								   nodes::null,
+								   nodes::condition
 			                      >
 		{
 		};

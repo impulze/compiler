@@ -22,18 +22,22 @@ options
 	namespace nodes = boofar::nodes;
 	using std::unique_ptr;
 }
+program returns [ nodes::block *node ] :
+		prog=block { node = prog; }
+	;
 
-program returns [ nodes::generic *node ]
-	scope
-	{ std::vector<nodes::generic *> statements; } :
+block returns [ nodes::block *node ]
+		scope
+		{ std::vector<nodes::generic *> statements; } :
 	
-	( stat=statement { $program::statements.push_back(stat); } )+
-	{ node = new nodes::program($program::statements); }
+		( stat=statement { $block::statements.push_back(stat); } )+
+		{ node = new nodes::block($block::statements); }
 	;
 
 statement returns [ nodes::generic *node ] :
 		( gen=declaration | gen=expression ) SEMICOLON
 		{ node = gen; }
+	|	cond=condition { node = cond; }
 //	|	function_definition
 	;
 
@@ -45,6 +49,27 @@ declaration returns [ nodes::declaration *node ] :
 expression returns [ nodes::generic *node ] :
 		ass=assignment { node = ass; }
 	|	op=operation { node = op; }
+	;
+
+condition returns [ nodes::condition *node ]
+	scope
+	{
+		nodes::generic *else_node;
+	} :
+		{ $condition::else_node = new nodes::null(); }
+		IF LEFT_PARENTHESIS exp=expression RIGHT_PARENTHESIS bl=braced_block
+		(
+			ELSE
+			(	econd=condition { $condition::else_node = econd; }
+			|	eblock=braced_block { $condition::else_node = eblock; }
+			)
+		)?
+		{ node = new nodes::condition(exp, bl, $condition::else_node); }
+	;
+
+braced_block returns [ nodes::block *node ] :
+		LEFT_BRACE bbl=block RIGHT_BRACE
+		{ node = bbl; }
 	;
 
 assignment returns [ nodes::assignment *node ] :
