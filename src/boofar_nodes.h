@@ -47,14 +47,14 @@ namespace boofar
 			public generic
 		{
 		public:
-			block(const std::vector<generic *> &statements) :
-				generic(types::block), _statements(statements)
+			block(const std::vector<const generic *> &&statements) :
+				generic(types::block), _statements(std::move(statements))
 			{}
 
-			const std::vector<generic *> &statements() const;
+			const std::vector<const generic *> &statements() const;
 
 		private:
-			const std::vector<generic *> _statements;
+			const std::vector<const generic *> _statements;
 		};
 
 		class assignment :

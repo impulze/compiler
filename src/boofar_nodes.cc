@@ -38,7 +38,7 @@ namespace boofar
 		{ return _symbol; }
 
 		// block
-		const std::vector<generic *> &block::statements() const
+		const std::vector<const generic *> &block::statements() const
 		{ return _statements; }
 
 		// condition
