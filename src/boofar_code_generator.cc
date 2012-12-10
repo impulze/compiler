@@ -1,5 +1,6 @@
 #include "boofar_nodes.h"
 #include "boofar_code_generator.h"
+#include "help_indent_printer.h"
 
 namespace boofar
 {
@@ -8,29 +9,47 @@ namespace boofar
 		void code_generator::visit(const nodes::assignment &node)
 		{
 			node.variable()->accept(*this);
-			_output << " = ";
+
+			auto p = help::indent_printer(_output, _indent);
+
+			p.no_indent() << " = ";
+
 			node.expression()->accept(*this);
 		}
 
 		void code_generator::visit(const nodes::block &node)
 		{
-			_output << "{\n";
+			auto p = help::indent_printer(_output, _indent);
+			p << "{\n";
+			++p;
+
 			for (const nodes::generic *statement: node.statements())
 			{
+				p.indent();
 				statement->accept(*this);
-				_output << ";\n";
+				p.no_indent() << ";\n";
 			}
-			_output << "}\n";
+
+			--p;
+			p << "}\n";
 		}
 
 		void code_generator::visit(const nodes::declaration &node)
 		{
 			node.type()->accept(*this);
-			_output << ' ';
+
+			auto p = help::indent_printer(_output, _indent);
+
+			p.no_indent() << ' ';
+
 			node.name()->accept(*this);
 		}
 
 		void code_generator::visit(const nodes::identifier &node)
-		{ _output << node.name(); }
+		{
+			auto p = help::indent_printer(_output, _indent);
+
+			p.no_indent() << node.name();
+		}
 	}
 }
