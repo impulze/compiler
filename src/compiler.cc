@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 			cout << "code generation:\n";
 
 			boofar::parser parser(&token_stream);
-			boofar::visitors::code_generator code_generator;
+			boofar::visitors::code_generator code_generator(cout);
 
 			parser.program()->accept(code_generator);
 		}

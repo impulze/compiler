@@ -3,6 +3,8 @@
 
 #include "boofar_base_visitor.h"
 
+#include <ostream>
+
 namespace boofar
 {
 	namespace visitors
@@ -11,9 +13,16 @@ namespace boofar
 			: public base<>
 		{
 		public:
+			code_generator(std::ostream &output) :
+				_output(output)
+			{}
+
 			using base<>::visit;
 
 			void visit(nodes::declaration const &node) override;
+
+		private:
+			std::ostream &_output;
 		};
 	}
 }
