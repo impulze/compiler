@@ -1,48 +1,7 @@
 #include "boofar_nodes.h"
 #include "boofar_prettyprinter.h"
 #include "boofar_code_generator.h"
-
-namespace
-{
-	struct indent_printer
-	{
-		explicit indent_printer(std::ostream &strm, int &indent)
-			: strm_(strm),
-			  indent_(indent),
-			  once_(false),
-			  no_indent_(false)
-		{
-		}
-
-		indent_printer &once()
-		{
-			once_ = true;
-			return *this;
-		}
-
-		template <class T>
-		indent_printer &operator<<(T const &);
-
-		indent_printer &operator++()
-		{
-			indent_++;
-			once_ = no_indent_ = false;
-			return *this;
-		}
-
-		indent_printer &operator--()
-		{
-			indent_--;
-			once_ = no_indent_ = false;
-			return *this;
-		}
-
-		std::ostream &strm_;
-		int &indent_;
-		bool once_;
-		bool no_indent_;
-	};
-}
+#include "help_indent_printer.h"
 
 namespace boofar
 {
@@ -50,7 +9,7 @@ namespace boofar
 	{
 		void prettyprinter::visit(const nodes::assignment &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<assignment>\n";
 			++p;
@@ -70,7 +29,7 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::binary_operation &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<binary_operation symbol=\"" << node.symbol() << "\">\n";
 			++p;
@@ -90,7 +49,7 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::block &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<block>\n";
 			++p;
@@ -110,7 +69,7 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::condition &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<condition>\n";
 			++p;
@@ -135,7 +94,7 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::declaration &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<declaration>\n";
 			++p;
@@ -155,14 +114,14 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::identifier &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<identifier name=\"" << node.name() << "\"/>\n";
 		}
 
 		void prettyprinter::visit(const nodes::literal &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<literal type=\"";
 
@@ -189,13 +148,13 @@ namespace boofar
 
 		void prettyprinter::visit(const nodes::null &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 			p.once() << "<null/>";
 		}
 
 		void prettyprinter::visit(const nodes::unary_operation &node)
 		{
-			auto p = indent_printer(_output, _indent);
+			auto p = help::indent_printer(_output, _indent);
 
 			p.once() << "<unary_operation symbol=\"" << node.symbol() << "\">\n";
 			++p;
@@ -207,30 +166,5 @@ namespace boofar
 			--p;
 			p << "</unary_operation>\n";
 		}
-	}
-}
-
-namespace
-{
-	template <class T>
-	indent_printer &indent_printer::operator<<(T const &t)
-	{
-		if (!no_indent_)
-		{
-			for (int i = 0; i < indent_; i++)
-			{
-				strm_ << "  ";
-			}
-		}
-
-		if (once_)
-		{
-			no_indent_ = true;
-			once_ = false;
-		}
-
-		strm_ << t;
-
-		return *this;
 	}
 }
