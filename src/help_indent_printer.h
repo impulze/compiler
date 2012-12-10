@@ -13,6 +13,24 @@ namespace help
 		{
 		}
 
+		indent_printer &indent()
+		{
+			no_indent_ = false;
+
+			for (int i = 0; i < indent_; i++)
+			{
+				strm_ << "  ";
+			}
+
+			return *this;
+		}
+
+		indent_printer &no_indent()
+		{
+			no_indent_ = true;
+			return *this;
+		}
+
 		indent_printer &once()
 		{
 			once_ = true;

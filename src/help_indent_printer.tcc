@@ -7,10 +7,7 @@ namespace help
 	{
 		if (!no_indent_)
 		{
-			for (int i = 0; i < indent_; i++)
-			{
-				strm_ << "  ";
-			}
+			indent();
 		}
 
 		if (once_)
