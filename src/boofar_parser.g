@@ -54,9 +54,9 @@ expression returns [ nodes::generic *node ] :
 condition returns [ nodes::condition *node ]
 	scope
 	{
-		nodes::generic *else_node;
+		const nodes::generic *else_node;
 	} :
-		{ $condition::else_node = new nodes::null(); }
+		{ $condition::else_node = &nodes::null::instance(); }
 		IF LEFT_PARENTHESIS exp=expression RIGHT_PARENTHESIS bl=braced_block
 		(
 			ELSE
